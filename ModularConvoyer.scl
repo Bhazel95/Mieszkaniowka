@@ -1,0 +1,382 @@
+﻿FUNCTION_BLOCK "ModularConvoyer"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Axis {InstructionName := 'TO_PositioningAxis'; LibVersion := '7.0'} : TO_PositioningAxis;
+   END_VAR
+
+   VAR_IN_OUT 
+      Convoyer : "Modular_10";
+      Diagnostic : "DiagnosticMainCabinet";
+      ProducedUnits : DInt;
+   END_VAR
+
+   VAR 
+      R_TRIG_CriticalError {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_StampingDone {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_CameraDone {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_SortingDone {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_ConvoyerDone {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_Stop {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      State { S7_SetPoint := 'False'} : "s_changeState";
+      Local : Struct
+         AutoMode : Bool;
+         Buttons : Struct
+            START : Bool;
+            RESET : Bool;
+            STOP : Bool;
+         END_STRUCT;
+         Permission : Bool;
+         ActionDone : Struct
+            Stamping : Bool;
+            Camera : Bool;
+            Sorting : Bool;
+         END_STRUCT;
+         Execute : Struct
+            Stamping : Bool;
+            Camera : Bool;
+            Sorting : Bool;
+            Convoyer : Bool;
+            Blow : Bool;
+         END_STRUCT;
+         ActionToDo : Struct
+            Stamping : Bool;
+            Camera : Bool;
+            Blow : Bool;
+         END_STRUCT;
+         DoubleStampingDone : Bool;
+         StampingTime : Time;
+         isMoved : Bool;
+      END_STRUCT;
+      Timers : Struct
+         WatchdogGoModules { S7_SetPoint := 'False'} : "s_TON";
+         WatchdogGoConvoyer : "s_TON";
+         Delay : "s_TON";
+         DoubleStamp : "s_TON";
+         UnloadTimer {InstructionName := 'TON_TIME'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : TON_TIME;
+      END_STRUCT;
+      CameraConnectionTCP_Instance { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "CameraConnectionTCP";
+      PositioningAxis_Instance { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ModularAxis";
+      Blow_Instance : "Blow";
+      Stamping_Instance : "Stamping";
+   END_VAR
+
+   VAR CONSTANT 
+      S_IDLE : Int := 0;
+      S_ERROR : Int := 20;
+      S_GO_CONVOYER : Int := 30;
+      S_GO_MODULES : Int := 40;
+      TEST : Int := 100;
+      E_MODULES_TIMEOUT : Word := 16#8000;
+      E_CONVOYER_TIMEOUT : Word := 16#8001;
+   END_VAR
+
+
+BEGIN
+	REGION R/F_TRIG
+	    #R_TRIG_CriticalError(CLK := NOT #Convoyer.Safety.SafetyOK OR #PositioningAxis_Instance.Status.Error);
+	    #R_TRIG_StampingDone(CLK := #Stamping_Instance.Status.Done);
+	    #R_TRIG_CameraDone(CLK := #CameraConnectionTCP_Instance.Status.Done);
+	    #R_TRIG_SortingDone(CLK := #Convoyer.SortingStatus.Done);
+	    #R_TRIG_ConvoyerDone(CLK := #PositioningAxis_Instance.Status.Ready);
+	    #R_TRIG_Stop(CLK := #Local.Buttons.STOP AND #Local.AutoMode);
+	END_REGION
+	
+	REGION Timers
+	    //WATCHDOG MACHINE START
+	    #Timers.WatchdogGoModules.PT := T#20S;
+	    #Timers.WatchdogGoModules.Timer(IN := #Timers.WatchdogGoModules.IN,
+	                                    PT := #Timers.WatchdogGoModules.PT);
+	    #Timers.WatchdogGoConvoyer.PT := T#10S;
+	    #Timers.WatchdogGoConvoyer.Timer(IN := #Timers.WatchdogGoConvoyer.IN,
+	                                     PT := #Timers.WatchdogGoConvoyer.PT);
+	    #Timers.Delay.PT := T#10S;
+	    #Timers.Delay.Timer(IN := #Timers.Delay.IN,
+	                        PT := #Timers.Delay.PT);
+	    
+	    #Timers.DoubleStamp.PT := T#500MS;
+	    #Timers.DoubleStamp.Timer(IN := #Timers.DoubleStamp.IN,
+	                              PT := #Timers.DoubleStamp.PT);
+	    
+	    #Timers.UnloadTimer(IN:=NOT #Convoyer.Sensors.UnloadingPresence,
+	                        PT:=T#1000MS);
+	END_REGION
+	
+	//Permission to start
+	#Local.Permission := #Diagnostic.DiagnosticOK AND #Convoyer.Safety.SafetyOK
+	AND NOT #Convoyer.Alarms.Present AND #Convoyer.Pneumatics.Stamping.Sensors.In
+	AND NOT #Convoyer.Pneumatics.Stamping.Sensors.Out AND (#Convoyer.CameraStatus.Ready OR NOT #Convoyer.HMI.Camera.Enable)
+	AND #Convoyer.MotorStatus.Ready AND #Convoyer.Sensors.Stamp_Check_1 AND #Convoyer.Sensors.UnloadingPresence;
+	
+	//Start button
+	#Local.Buttons.START := #Convoyer.ButtonControl.ButtonBoxLeft.ButtonStart OR #Convoyer.ButtonControl.ButtonBoxRight.ButtonStart OR #Convoyer.HMI.Buttons.Start;
+	//Stop button
+	#Local.Buttons.STOP := #Convoyer.ButtonControl.ButtonBoxLeft.ButtonStop OR #Convoyer.ButtonControl.ButtonBoxRight.ButtonStop OR #Convoyer.HMI.Buttons.Stop;
+	//Reset button
+	#Local.Buttons.RESET := #Convoyer.ButtonControl.ButtonBoxLeft.ButtonReset OR #Convoyer.ButtonControl.ButtonBoxRight.ButtonReset OR #Convoyer.ButtonControl.CabinetBox.ButtonReset;
+	
+	CASE #State.state OF
+	    #S_IDLE:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Convoyer.ConvoyerStatus.Busy := FALSE;
+	            #Convoyer.ConvoyerStatus.Done := FALSE;
+	            #Convoyer.ConvoyerStatus.Error := FALSE;
+	            #Convoyer.ConvoyerStatus.ErrorStatus := 16#0000;
+	            #Convoyer.ConvoyerStatus.Ready := TRUE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            //ZABEZPIECZENIE PRZED MANUALNYM RUSZENIEM TRANSPORTERA
+	            IF #Convoyer.MotorControl.MC_MOVEJOG.JogBackward OR #Convoyer.MotorControl.MC_MOVEJOG.JogForward THEN
+	                #Local.isMoved := TRUE;
+	            END_IF;
+	            
+	            IF #Convoyer.Safety.LightCurtain_Stamping AND #Local.Permission AND (#Local.Buttons.START OR #Local.AutoMode) AND NOT #Local.Buttons.STOP AND NOT #Local.Buttons.RESET THEN
+	                #Local.AutoMode := TRUE;
+	                IF ((NOT #Convoyer.Sensors.StampingPresence AND NOT #Local.ActionDone.Stamping) OR (NOT #Convoyer.Sensors.CameraPresence AND NOT #Local.ActionDone.Camera)) AND NOT #Local.isMoved THEN
+	                        "changeState"(newState := #S_GO_MODULES,
+	                                      Data := #State);
+	                    ELSIF ((#Local.ActionDone.Stamping OR #Convoyer.Sensors.StampingPresence) AND (#Local.ActionDone.Camera OR #Convoyer.Sensors.CameraPresence)) OR #Local.isMoved THEN
+	                        "changeState"(newState := #S_GO_CONVOYER,
+	                                      Data := #State);
+	                    END_IF;
+	                END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            #Convoyer.ConvoyerStatus.Ready := FALSE;
+	            #Convoyer.ConvoyerStatus.Busy := TRUE;
+	        END_IF;
+	        
+	    #S_ERROR:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Convoyer.ConvoyerStatus.Busy := FALSE;
+	            #Convoyer.ConvoyerStatus.Done := FALSE;
+	            #Convoyer.ConvoyerStatus.Error := TRUE;
+	            #Convoyer.ConvoyerStatus.Ready := FALSE;
+	            #Local.Execute.Camera := FALSE;
+	            #Local.AutoMode := FALSE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            IF  #Local.Buttons.RESET  AND NOT #Convoyer.Alarms.Present AND  #Convoyer.Safety.SafetyOK
+	                AND (#CameraConnectionTCP_Instance.Status.Ready OR NOT #Convoyer.HMI.Camera.Enable) AND #PositioningAxis_Instance.Status.Ready
+	                AND (#Stamping_Instance.Status.Ready OR NOT #Convoyer.HMI.Stamping.Enable) AND #Local.Permission THEN
+	                "changeState"(newState := #S_IDLE,
+	                              Data := #State);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            ;
+	        END_IF;
+	        
+	    #S_GO_CONVOYER:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Timers.WatchdogGoConvoyer.IN := TRUE;
+	            #Local.Execute.Convoyer := TRUE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            IF #R_TRIG_ConvoyerDone.Q THEN
+	                #Local.isMoved := FALSE;
+	                IF NOT #Local.AutoMode OR NOT #Convoyer.Safety.LightCurtain_Stamping THEN
+	                    "changeState"(newState := #S_IDLE,
+	                                  Data := #State);
+	                ELSE
+	                    "changeState"(newState := #S_GO_MODULES,
+	                                  Data := #State);
+	                END_IF;
+	            END_IF;
+	            
+	            IF #PositioningAxis_Instance.Status.Error THEN
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF;
+	            
+	            //WATCHDOG
+	            IF #Timers.WatchdogGoConvoyer.Timer.Q THEN
+	                #PositioningAxis_Instance.Status.ErrorStatus := #E_CONVOYER_TIMEOUT;
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            #Local.Execute.Convoyer := FALSE;
+	            #Local.ActionDone.Stamping := FALSE;
+	            #Local.ActionDone.Camera := FALSE;
+	            #Local.ActionDone.Sorting := FALSE;
+	            #Timers.WatchdogGoConvoyer.IN := FALSE;
+	            #Local.Execute.Convoyer := FALSE;
+	        END_IF;
+	        
+	    #S_GO_MODULES:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Timers.WatchdogGoModules.IN := TRUE;
+	            #Timers.Delay.IN := TRUE;
+	            #Local.DoubleStampingDone := FALSE;
+	            IF #Convoyer.HMI.Stamping.Double THEN
+	                #Local.StampingTime := T#1MS;
+	            ELSE
+	                #Local.StampingTime:= #Convoyer.HMI.Stamping.TimerStamping;
+	            END_IF;
+	            
+	            #Local.Execute.Blow := NOT #Convoyer.Sensors.BlowPresence AND #Convoyer.HMI.Blow.Enable;
+	            #Local.Execute.Stamping := NOT #Local.ActionDone.Stamping AND NOT #Convoyer.Sensors.StampingPresence AND #Convoyer.HMI.Stamping.Enable;
+	            #Local.Execute.Camera := NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence AND #Convoyer.HMI.Camera.Enable;
+	            #Local.ActionToDo.Stamping := #Local.Execute.Stamping;
+	            #Local.ActionToDo.Camera := #Local.Execute.Camera;
+	        END_IF;
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            
+	            REGION double stamping
+	                IF #Convoyer.HMI.Stamping.Double AND NOT #Local.DoubleStampingDone AND #Timers.DoubleStamp.Timer.Q THEN
+	                    #Local.StampingTime := #Convoyer.HMI.Stamping.TimerStamping;
+	                    #Local.DoubleStampingDone := TRUE;
+	                    #Local.Execute.Stamping := TRUE;
+	                END_IF;
+	            END_REGION
+	            
+	            IF #R_TRIG_CameraDone.Q THEN
+	                #Local.ActionDone.Camera := TRUE;
+	                #Local.ActionToDo.Camera := FALSE;
+	                #Local.Execute.Camera := FALSE;
+	            END_IF;
+	            IF #R_TRIG_SortingDone.Q THEN
+	                #Local.ActionDone.Sorting := TRUE;
+	            END_IF;
+	            IF #R_TRIG_StampingDone.Q THEN
+	                #ProducedUnits := #ProducedUnits + 1;
+	                IF NOT #Convoyer.HMI.Stamping.Double THEN
+	                    #Local.ActionDone.Stamping := TRUE;
+	                    #Local.ActionToDo.Stamping := FALSE;
+	                    #Local.Execute.Stamping := FALSE;
+	                ELSIF #Convoyer.HMI.Stamping.Double AND NOT #Local.DoubleStampingDone THEN
+	                    #Timers.DoubleStamp.IN := TRUE;
+	                    #Local.Execute.Stamping := FALSE;
+	                ELSIF #Convoyer.HMI.Stamping.Double AND  #Local.DoubleStampingDone THEN
+	                    #Local.ActionDone.Stamping := TRUE;
+	                    #Local.ActionToDo.Stamping := FALSE;
+	                    #Local.Execute.Stamping := FALSE;
+	                END_IF;
+	            END_IF;
+	            
+	            //Oczekiwanie na potwierdzenia blokow wykonawczych
+	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow THEN
+	                IF NOT #Local.AutoMode THEN
+	                    "changeState"(newState := #S_IDLE,
+	                                  Data := #State);
+	                ELSE
+	                    IF #Local.Permission THEN
+	                        "changeState"(newState := #S_GO_CONVOYER,
+	                                      Data := #State);
+	                    ELSE
+	                        "changeState"(newState := #S_IDLE,
+	                                      Data := #State);
+	                    END_IF;
+	                END_IF;
+	            END_IF;
+	            //Modules Error
+	            IF (#CameraConnectionTCP_Instance.Status.Error OR #Stamping_Instance.Status.Error (*OR #Convoyer.Modular.SortingStatus.Error*)) AND #Timers.Delay.Timer.Q THEN
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF;
+	            
+	            //WATCHDOG
+	            IF #Timers.WatchdogGoModules.Timer.Q THEN
+	                #PositioningAxis_Instance.Status.ErrorStatus := #E_MODULES_TIMEOUT;
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF; 
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            #Timers.DoubleStamp.IN := FALSE;
+	            #Timers.WatchdogGoModules.IN := FALSE;
+	            #Local.Execute.Stamping := FALSE;
+	            #Local.Execute.Camera := FALSE;
+	            #Local.Execute.Sorting := FALSE;
+	        END_IF;
+	END_CASE;
+	
+	REGION FunctionBlocks
+	#Stamping_Instance(Reset:=#Local.Buttons.RESET,
+	                   SecondPush:=#Convoyer.HMI.Stamping.SecondPush,
+	                   TimerSecondPush:=#Convoyer.HMI.Stamping.TimerSecond,
+	                   PreasureSecondPush:=#Convoyer.HMI.Stamping.SecondPreasure,
+	                   TimerStamp:=#Convoyer.HMI.Stamping.TimerStamping,
+	                   TimerMax:=#Convoyer.HMI.Stamping.TimerMaxPreasure,
+	                   MaxPreasure:=#Convoyer.HMI.Stamping.MaxPreasure,
+	                   RegularPreasure:=#Convoyer.HMI.Stamping.RegularPreasure,
+	                   Status=>#Convoyer.StampingStatus,
+	                   Valve:=#Convoyer.Pneumatics.Stamping,
+	                   ITV:=#Convoyer.Pneumatics.IVT,
+	                   Execute:=#Local.Execute.Stamping);
+	#CameraConnectionTCP_Instance(Enable:=#Convoyer.HMI.Camera.Enable,
+	                              Execute := #Local.Execute.Camera,
+	                                  Reset := #Local.Buttons.RESET,
+	                                  ConnectionTimer:=#Convoyer.HMI.Camera.TimerConnection,
+	                                  Status => #Convoyer.CameraStatus,
+	                                  Parameters := #Convoyer.CameraConnection);
+	    #PositioningAxis_Instance(HomingSensor:=#Convoyer.Sensors.Homing_I,
+	                              Reset:=#Local.Buttons.RESET,
+	                              InverterOK:=#Convoyer.Safety.InverterOK,
+	                              Axis:=#Axis,
+	                              Status=>#Convoyer.MotorStatus,
+	                              Execute:=#Local.Execute.Convoyer,
+	                              PositioningAxis:=#Convoyer.MotorControl);
+	    #Blow_Instance(Timer:=#Convoyer.HMI.Blow."Time",
+	                   Execute:=#Local.Execute.Blow,
+	                   Coil:=#Convoyer.Pneumatics.Valve.Coils.Out);
+	END_REGION
+	
+	REGION Lights
+	    //RESET BUTTON
+	    #Convoyer.ButtonControl.ButtonBoxLeft.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.StampingStatus.Ready);
+	    #Convoyer.ButtonControl.ButtonBoxRight.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In  AND #Convoyer.StampingStatus.Ready);
+	    #Convoyer.ButtonControl.CabinetBox.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.StampingStatus.Ready);
+	    //STOP BUTTON
+	    #Convoyer.ButtonControl.ButtonBoxLeft.LightStop := #Convoyer.ConvoyerStatus.Busy AND NOT #Local.AutoMode;
+	    #Convoyer.ButtonControl.ButtonBoxRight.LightStop := #Convoyer.ConvoyerStatus.Busy AND NOT #Local.AutoMode;
+	    //START BUTTON
+	    #Convoyer.ButtonControl.ButtonBoxLeft.LightStart := #Convoyer.ConvoyerStatus.Ready AND #Local.Permission AND NOT #Local.AutoMode;
+	    #Convoyer.ButtonControl.ButtonBoxRight.LightStart := #Convoyer.ConvoyerStatus.Ready AND #Local.Permission AND NOT #Local.AutoMode;
+	    //ANDON 
+	    #Convoyer.Lights.Red := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error;
+	    #Convoyer.Lights.Green := #Convoyer.ConvoyerStatus.Busy OR #Local.AutoMode;
+	    #Convoyer.Lights.Buzzer := #Convoyer.ConvoyerStatus.Ready AND #Local.Permission AND NOT #Local.AutoMode;
+	    #Convoyer.Lights.Orange := #Timers.UnloadTimer.Q;
+	END_REGION
+	
+	//Set AutoMode off
+	IF #R_TRIG_Stop.Q THEN
+	    #Local.AutoMode := FALSE;
+	END_IF;
+	
+	//Error trig
+	IF #R_TRIG_CriticalError.Q THEN
+	    "changeState"(newState := #S_ERROR,
+	                  Data := #State);
+	END_IF;
+	
+	REGION Change state
+	    IF #State.inputFlag AND NOT #State.outputFlag THEN
+	        #State.inputFlag := FALSE;
+	    END_IF;
+	    #State.outputFlag := FALSE;
+	END_REGION
+END_FUNCTION_BLOCK
+

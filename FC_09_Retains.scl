@@ -1,0 +1,23 @@
+﻿FUNCTION "FC_09_Retains" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Retains
+	    "DEV".Retains.Convoyer10A.MaxPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.MaxPreasure;
+	    "DEV".Retains.Convoyer10A.RegularPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.RegularPreasure;
+	    "DEV".Retains.Convoyer10A.TimeMaxPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerMaxPreasure;
+	    "DEV".Retains.Convoyer10A.TimeStamping := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerStamping;
+	    
+	    "DEV".Retains.Convoyer10A.SecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPush;
+	    "DEV".Retains.Convoyer10A.PreasureSecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPreasure;
+	    "DEV".Retains.Convoyer10A.TimeSecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerSecond;
+	END_REGION
+	
+	REGION HMI    
+	    "DEV".Convoyer_7.Modular_7A.HMI.Camera.State := "ModularConvoyer_7A_DB".CameraConnectionTCP_Instance.State.name;
+	    
+	END_REGION
+	
+END_FUNCTION
+

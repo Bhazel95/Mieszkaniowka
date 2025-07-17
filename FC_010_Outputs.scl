@@ -1,0 +1,63 @@
+﻿FUNCTION "FC_010_Outputs" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Button box left
+	    "7A_BUTTON_LIGHT_START_1" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.LightStart;
+	    "7A_BUTTON_LIGHT_RESET_1" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.LightReset;
+	    "7A_BUTTON_LIGHT_STOP_1" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.LightStop;
+	    "7A_BUTTON_LIGHT_ESTOP_1" :=NOT "7A_ESTOP_1";
+	END_REGION
+	REGION Button box right
+	    "7A_BUTTON_LIGHT_START_2" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.LightStart;
+	    "7A_BUTTON_LIGHT_RESET_2" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.LightReset;
+	    "7A_BUTTON_LIGHT_STOP_2" := "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.LightStop;
+	    "7A_BUTTON_LIGHT_ESTOP_2" :=NOT "7A_ESTOP_2";
+	END_REGION
+	REGION Main Cabinet
+	    "7A_BUTTON_LIGHT_RESET_6" := "DEV".Convoyer_7.Modular_7A.ButtonControl.CabinetBox.LightReset;
+	    "7A_BUTTON_LIGHT_ESTOP_6" :=NOT "7A_ESTOP_6";
+	END_REGION
+	REGION Lights    
+	    "7A_LIGHTS_BUZZER_1" := "DEV".Convoyer_7.Modular_7A.Lights.Buzzer;
+	    "7A_LIGHTS_GREEN_1" := "DEV".Convoyer_7.Modular_7A.Lights.Green;
+	    "7A_LIGHTS_RED_1" := "DEV".Convoyer_7.Modular_7A.Lights.Red;
+	    "7A_LIGHTS_ORANGE_1":= "DEV".Convoyer_7.Modular_7A.Lights.Orange;
+	END_REGION
+	
+	
+	REGION 24V
+	    "7AB_24V_OK" := "7_24V_OK";
+	END_REGION
+	
+	
+	REGION Pneumatics
+	    "7A_VALVE_IN_1" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.In;
+	    "7A_VALVE_OUT_1" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.Out;
+	    
+	    "7A_VALVE_IN_2" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Valve.Coils.In;
+	    "7A_VALVE_OUT_2" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Valve.Coils.Out;
+	    
+	    IF "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK THEN
+	        "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm := NORM_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Analog.SetValue, MAX := 7);
+	        "7A_IVT_OutputSignal_1" := SCALE_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm, MAX := 32767);
+	    ELSE
+	        "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm := NORM_X(MIN := 0.0, VALUE := 0.0, MAX := 7);
+	        "7A_IVT_OutputSignal_1" := SCALE_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm, MAX := 32767);
+	    END_IF;
+	END_REGION
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+END_FUNCTION
+

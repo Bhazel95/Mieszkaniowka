@@ -1,0 +1,79 @@
+﻿FUNCTION "FC_002_Inputs" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+
+BEGIN
+	REGION Button box left
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.ButtonReset := "7A_BUTTON_RESET_1";
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.ButtonStart := "7A_BUTTON_START_1";
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.ButtonStop := "7A_BUTTON_STOP_1";
+	    "DEV".Convoyer_7.Modular_7A.Safety.ESTOP_Left := "7A_ESTOP_1";
+	END_REGION
+	REGION Button box right
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.ButtonReset := "7A_BUTTON_RESET_2";
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.ButtonStart := "7A_BUTTON_START_2";
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxRight.ButtonStop := "7A_BUTTON_STOP_2";
+	    "DEV".Convoyer_7.Modular_7A.Safety.ESTOP_Right := "7A_ESTOP_2";
+	END_REGION
+	REGION Main Cabinet    
+	    "DEV".Convoyer_7.Modular_7A.ButtonControl.CabinetBox.ButtonReset := "7A_BUTTON_RESET_6";
+	    "DEV".Convoyer_7.Modular_7A.Safety.ESTOP_MAIN := "7A_ESTOP_6";
+	END_REGION
+	REGION Pneumatics
+	    "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Sensors.In := "10A_ActuatorIn";
+	    "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Sensors.Out := "10A_ActuatorOut";
+	    "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Analog.RealValue := "7A_IVT_InputSignal_1";
+	    "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.RealNorm :=NORM_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Analog.RealValue, MAX := 32767);
+	    "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.RealScale := SCALE_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.RealNorm, MAX := 7);
+	END_REGION
+	
+	REGION Sensors
+	    "DEV".Convoyer_7.Modular_7A.Sensors.Homing_I := "7A_Homing_I";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.Homing_R := "7A_Homing_R";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.StampingPresence := "7A_StampingPresence" AND "DEV".Convoyer_7.Modular_7A.HMI.Stamping.Enable;
+	    "DEV".Convoyer_7.Modular_7A.Sensors.Stamp_Check_1 := "7A_StampingCheck_1";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.Stamp_Check_2 := "10A_StampingCheck_2";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.BlowPresence := "10A_BlowPresence";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.CameraPresence := "10A_CameraPresence";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.UnloadingPresence := "10A_UnloadingPresence";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.Span := "10A_Span";
+	    "DEV".Convoyer_7.Modular_7A.Sensors.JogBack := "10A_JogBack";
+	END_REGION
+	
+	REGION Light curtains
+	    "DEV".Convoyer_7.Modular_7A.Safety.LightCurtain_Stamping := "7A_LIGHT_CURTAIN_1";
+	END_REGION
+	REGION Door
+	    "DEV".Convoyer_7.Modular_7A.Safety.DoorFront := "7A_DOOR_1";
+	    "DEV".Convoyer_7.Modular_7A.Safety.DoorBack := "7A_DOOR_2";
+	    "DEV".Convoyer_7.Modular_7A.Safety.DoorUnload := "7A_DOOR_5";
+	END_REGION
+	REGION Thermostat
+	    "DEV".Convoyer_7.Modular_7A.Safety.Thermostat := NOT "7A_THERMOSTAT_1";
+	END_REGION
+	REGION 24 v
+	    // Statement section REGION
+	    
+	END_REGION
+	REGION Camera
+	    "DEV".Convoyer_7.Modular_7A.CameraConnection := "MainPLC_Connection_DB";
+	END_REGION
+	
+	REGION HMI RECIPE
+	IF "DEV".Recipes.Convoyer7.A.Type THEN
+	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping := "DEV".Recipes.Convoyer7.A.StampingPL;
+	ELSE
+	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping := "DEV".Recipes.Convoyer7.A.StampingCN;
+	END_IF;
+	END_REGION
+	
+	
+	
+	
+	
+	
+	
+	
+	
+END_FUNCTION
+

@@ -1,0 +1,111 @@
+﻿FUNCTION "FC_003_Alarms" : Void
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      StatusInverter_10A : "Status";
+      StatusCamera_10A : "Status";
+      StatusStamping_10A : "Status";
+      Diagnostic : "DiagnosticMainCabinet";
+   END_VAR
+
+   VAR_IN_OUT 
+      Alarms_10A : "Alarms_10";
+   END_VAR
+
+
+BEGIN
+	REGION Alarms Convoyer 10
+	    #Alarms_10A.ESTOP.Main :=NOT "7A_ESTOP_6";
+	    #Alarms_10A.Fault24V := NOT "7_24V_OK";
+	    REGION Convoyer 10A   
+	        #Alarms_10A.ResetReq := "DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET OR NOT "7A_Valve_Safety_1";
+	       
+	        REGION ESTOP&DOOR
+	            #Alarms_10A.ESTOP.Left :=NOT "7A_ESTOP_1";
+	            #Alarms_10A.ESTOP.Right :=NOT "7A_ESTOP_2";
+	            #Alarms_10A.Door.Front :=NOT "7A_DOOR_1" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.FrontDoor;
+	            #Alarms_10A.Door.Back :=NOT "7A_DOOR_2" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.BackDoor;
+	            #Alarms_10A.Door.Unload := NOT "7A_DOOR_5" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.UnloadDoor;
+	        END_REGION
+	        REGION Light curtain
+	            #Alarms_10A.LightCurtain.Front := ("DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.In OR "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.Out) AND NOT "7A_LIGHT_CURTAIN_1" OR ("DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET AND NOT "7A_LIGHT_CURTAIN_1");
+	        END_REGION
+	        
+	        REGION INVERTER
+	            IF NOT "DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET AND "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK THEN
+	                #Alarms_10A.Inverter.GlobalError := NOT "DEV".Convoyer_7.Modular_7A.Safety.InverterOK;
+	                #Alarms_10A.Inverter.POWER := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8002;
+	                #Alarms_10A.Inverter.HALT := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8001;
+	                #Alarms_10A.Inverter.RESET := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8005;
+	                #Alarms_10A.Inverter.JOG := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8003;
+	                #Alarms_10A.Inverter.RELATIVE := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8004;
+	                #Alarms_10A.Inverter.HOMING := #StatusInverter_10A.Error AND #StatusInverter_10A.ErrorStatus = 16#8000;
+	            END_IF;
+	        END_REGION
+	        
+	        REGION Camera
+	            #Alarms_10A.Camera.ConnectionTimeout := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8000;
+	            #Alarms_10A.Camera.MachienStartWrongResponse := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8001;
+	            #Alarms_10A.Camera.MachineStartNotSend := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8002;
+	            #Alarms_10A.Camera.MachineStartNoResponse := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8003;
+	            #Alarms_10A.Camera.CameraWrongResponse := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8004;
+	            #Alarms_10A.Camera.CameraNoResponse := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8005;
+	            #Alarms_10A.Camera.CameraNotSend := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8006;
+	            #Alarms_10A.Camera.TRCV := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8007;
+	            #Alarms_10A.Camera.WatchdogTRCV := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8008;
+	            #Alarms_10A.Camera.TCON := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8009;
+	            #Alarms_10A.Camera.TDISCON := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8010;
+	            #Alarms_10A.Camera.TSEND := #StatusCamera_10A.Error AND #StatusCamera_10A.ErrorStatus = 16#8011;
+	        END_REGION
+	        
+	        REGION "Stamping"
+	            #Alarms_10A.Pneumatics.Span := NOT "10A_Span";
+	            #Alarms_10A.Pneumatics.Stamping.NotHomed := #StatusStamping_10A.Error AND #StatusStamping_10A.ErrorStatus = 16#8000;
+	            #Alarms_10A.Pneumatics.Stamping.WatchdogIn := #StatusStamping_10A.Error AND #StatusStamping_10A.ErrorStatus = 16#8001;
+	            #Alarms_10A.Pneumatics.Stamping.WatchdogOut := #StatusStamping_10A.Error AND #StatusStamping_10A.ErrorStatus = 16#8002;
+	        END_REGION
+	        
+	        REGION IVT
+	            ;
+	        END_REGION
+	        
+	        REGION Diagnostic
+	            #Alarms_10A.Diagnostic.ET200SP.Head := #Diagnostic.ET_200SP.HeadModule_0.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.BusAdapter := #Diagnostic.ET_200SP.BusAdapter_1.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDI_1 := #Diagnostic.ET_200SP.InputSafety_2.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDI_2 := #Diagnostic.ET_200SP.InputSafety_3.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDI_3 := #Diagnostic.ET_200SP.InputSafety_4.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDI_4 := #Diagnostic.ET_200SP.InputSafety_5.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDI_5 := #Diagnostic.ET_200SP.InputSafety_6.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FDQ_1 := #Diagnostic.ET_200SP.OutputSafety_7.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FRQ_1 := #Diagnostic.ET_200SP.RelaySafety_9.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.FRQ_2 := #Diagnostic.ET_200SP.RelaySafety_10.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DI_1 := #Diagnostic.ET_200SP.InputsDigital_11.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DI_2 := #Diagnostic.ET_200SP.InputsDigital_12.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DI_3 := #Diagnostic.ET_200SP.InputsDigital_13.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.AI_1 := #Diagnostic.ET_200SP.InputAnalog_14.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DQ_1 := #Diagnostic.ET_200SP.OutputDigital_15.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DQ_2 := #Diagnostic.ET_200SP.OutputDigital_16.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DQ_3 := #Diagnostic.ET_200SP.OutputDigital_17.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.DQ_4 := #Diagnostic.ET_200SP.OutputDigital_18.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.AQ_1 := #Diagnostic.ET_200SP.OutputAnalog_19.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.AL_1 := #Diagnostic.ET_200SP.ET_200AL_1.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.ET200SP.AL_2 := #Diagnostic.ET_200SP.ET_200AL_2.diagDIS.OwnState <> 0;
+	            
+	            #Alarms_10A.Diagnostic.Sinamic_1 := #Diagnostic.SinamicG120_1.diagDIS.OwnState <> 0;
+	            #Alarms_10A.Diagnostic.GeneralDiag := NOT #Diagnostic.DiagnosticOK;
+	        END_REGION
+	        
+	        #Alarms_10A.CriticalALarm := #Alarms_10A.ESTOP.Left OR #Alarms_10A.ESTOP.Right OR #Alarms_10A.ESTOP.Main OR
+	        #Alarms_10A.Door.Front OR #Alarms_10A.Door.Back OR #Alarms_10A.Door.Unload;
+	        #Alarms_10A.Present := #Alarms_10A.CriticalALarm OR #StatusCamera_10A.Error OR #StatusInverter_10A.Error OR #StatusStamping_10A.Error OR NOT #Diagnostic.DiagnosticOK (* OR NOT #Alarms_10A.Pneumatics.Span *);
+	        IF #Alarms_10A.Present THEN
+	            "DEV".Convoyer_7.Modular_7A.HMI.Page.Number := 1;
+	        ELSE
+	            "DEV".Convoyer_7.Modular_7A.HMI.Page.Number := 0;
+	        END_IF;
+	    END_REGION
+	END_REGION
+	
+END_FUNCTION
+

@@ -1,0 +1,42 @@
+﻿FUNCTION_BLOCK "Blow"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      "Timer" : Time;
+   END_VAR
+
+   VAR_IN_OUT 
+      Execute : Bool;
+      Coil : Bool;
+   END_VAR
+
+   VAR 
+      Blow { S7_SetPoint := 'False'} : "s_TON";
+      R_TRIG_Exe {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      R_TRIG_Done {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+   END_VAR
+
+
+BEGIN
+	#R_TRIG_Exe(CLK:=#Execute);
+	#R_TRIG_Done(CLK:=#Blow.Timer.Q);
+	
+	    #Blow.PT := #Timer;
+	    #Blow.IN := #Execute;
+	    #Blow.Timer(IN := #Blow.IN,
+	                PT := #Blow.PT);
+	    
+	    IF #R_TRIG_Exe.Q THEN
+	        #Coil := TRUE;
+	    END_IF;
+	    IF #R_TRIG_Done.Q THEN
+	        #Coil := FALSE;
+	        #Execute := FALSE;
+	    END_IF;
+	    
+	    
+	    
+	    
+	
+END_FUNCTION_BLOCK
+

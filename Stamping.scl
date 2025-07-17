@@ -1,0 +1,269 @@
+﻿FUNCTION_BLOCK "Stamping"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Reset : Bool;
+      SecondPush : Bool;
+      TimerSecondPush : Time;
+      PreasureSecondPush : Real;
+      TimerStamp : Time;
+      TimerMax : Time;
+      MaxPreasure : Real;
+      RegularPreasure : Real;
+   END_VAR
+
+   VAR_OUTPUT 
+      Status : "Status";
+   END_VAR
+
+   VAR_IN_OUT 
+      Valve : "Valve5_3";
+      ITV : "IVT";
+      Execute : Bool;
+   END_VAR
+
+   VAR 
+      State { S7_SetPoint := 'False'} : "s_changeState";
+      Timers : Struct
+         SetIn { S7_SetPoint := 'False'} : "s_TON";
+         SetOut : "s_TON";
+         Stamping : "s_TON";
+         SecondPush : "s_TON";
+         GoOut : "s_TON";
+      END_STRUCT;
+      R_TRIG_Exe {InstructionName := 'R_TRIG'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : R_TRIG;
+      FirstTry { S7_SetPoint := 'True'} : Bool;
+   END_VAR
+
+   VAR CONSTANT 
+      S_IDLE : Int := 0;
+      S_ERROR : Int := 20;
+      S_GO_IN : Int := 30;
+      S_GO_OUT : Int := 40;
+      NotHomed : Word := 16#8000;
+      WatchdogIn : Word := 16#8001;
+      WatchdogOut : Word := 16#8002;
+   END_VAR
+
+
+BEGIN
+	REGION #Timers
+	    #Timers.SetIn.PT := #Valve.Timers.In;
+	    #Timers.SetIn.Timer(IN := #Timers.SetIn.IN,
+	                        PT := #Timers.SetIn.PT);
+	    
+	    #Timers.SetOut.PT := #Valve.Timers.Out;
+	    #Timers.SetOut.Timer(IN := #Timers.SetOut.IN,
+	                         PT := #Timers.SetOut.PT);
+	    
+	    #Timers.Stamping.PT := #TimerStamp;
+	    #Timers.Stamping.Timer(IN := #Valve.Sensors.Out,
+	                           PT := #Timers.Stamping.PT);
+	    
+	    #Timers.SecondPush.PT := #TimerSecondPush;
+	    #Timers.SecondPush.Timer(IN := #Valve.Sensors.Out,
+	                             PT := #Timers.SecondPush.PT);
+	    
+	    #Timers.GoOut.PT := T#300MS;
+	    #Timers.GoOut.Timer(IN := #Timers.GoOut.IN,
+	                        PT := #Timers.GoOut.PT);
+	END_REGION
+	#R_TRIG_Exe(CLK:=#Execute);
+	
+	CASE #State.state OF
+	    #S_IDLE:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #State.name := 'STAN BEZCZYNNY';
+	            #Execute := FALSE;
+	            #Status.Busy := FALSE;
+	            #Status.Ready := TRUE;
+	            #Status.Done := TRUE;
+	            #Status.Error := FALSE;
+	            #Status.ErrorStatus := 16#0000;
+	            #Valve.Coils.In := FALSE;
+	            #Valve.Coils.Out := FALSE;
+	            #FirstTry := FALSE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Status.Ready := TRUE;
+	            IF #Reset AND NOT #Valve.Sensors.In THEN
+	                "changeState"(newState := #S_GO_IN,
+	                              Data := #State);
+	            END_IF;
+	            
+	            
+	            IF #R_TRIG_Exe.Q THEN
+	                IF NOT #Valve.Sensors.In THEN
+	                    #Status.ErrorStatus := #NotHomed;
+	                    "changeState"(newState := #S_ERROR,
+	                                  Data := #State);
+	                ELSE
+	                    #FirstTry := TRUE;
+	                    "changeState"(newState := #S_GO_OUT,
+	                                  Data := #State);
+	                END_IF;
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            #Status.Done := FALSE;
+	        END_IF;
+	        
+	    #S_ERROR:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #State.name := 'ERROR';
+	            #Status.Busy := FALSE;
+	            #Status.Ready := FALSE;
+	            #Status.Done := FALSE;
+	            #Status.Error := TRUE;
+	            #Valve.Coils.In := FALSE;
+	            #Valve.Coils.Out := FALSE;
+	            #Timers.GoOut.IN := FALSE;
+	            RESET_TIMER(#Timers.GoOut.Timer);
+	            #Timers.SecondPush.IN := FALSE;
+	            RESET_TIMER(#Timers.SecondPush.Timer);
+	            #Timers.SetIn.IN := FALSE;
+	            RESET_TIMER(#Timers.SetIn.Timer);
+	            #Timers.SetOut.IN:= FALSE;
+	            RESET_TIMER(#Timers.SetOut.Timer);
+	            #Timers.Stamping.IN := FALSE;
+	            RESET_TIMER(#Timers.Stamping.Timer);
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            IF #Reset THEN
+	                #Status.Error := FALSE;
+	                #Status.ErrorStatus := 16#0000;
+	                IF NOT #Valve.Sensors.In THEN
+	                    "changeState"(newState := #S_GO_IN,
+	                                  Data := #State);
+	                ELSE
+	                    "changeState"(newState := #S_IDLE,
+	                                  Data := #State);
+	                END_IF;
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            ;
+	        END_IF;
+	        
+	    #S_GO_IN:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #State.name := 'CHOWANIE SILOWNIKA';
+	            #Status.Busy := TRUE;
+	            #Status.Ready := FALSE;
+	           // #Status.Done := FALSE;
+	            #Status.Error := FALSE;
+	            #Valve.Coils.In := TRUE;
+	            #Valve.Coils.Out := FALSE;
+	            RESET_TIMER(#Timers.GoOut.Timer);
+	            
+	            #Timers.SetIn.IN := TRUE;
+	            #Timers.GoOut.IN := TRUE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            IF #Valve.Sensors.In AND (NOT #FirstTry OR NOT #SecondPush ) THEN
+	                #Execute := FALSE;
+	                "changeState"(newState := #S_IDLE,
+	                              Data := #State);
+	            END_IF;
+	            
+	            IF #SecondPush AND #FirstTry AND #Timers.GoOut.Timer.Q THEN
+	                #FirstTry := FALSE;
+	                "changeState"(newState := #S_GO_OUT,
+	                              Data := #State);
+	            END_IF;
+	            
+	            
+	            
+	            IF #Timers.SetIn.Timer.Q THEN
+	                #Status.ErrorStatus := #WatchdogIn;
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            #Valve.Coils.In := FALSE;
+	            #Timers.SetIn.IN := FALSE;
+	            #Timers.GoOut.IN := FALSE;
+	        END_IF;
+	        
+	    #S_GO_OUT:
+	        //Funkcja wejścia
+	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #State.name := 'WYSUNIECIE SILOWNIKA';
+	            #Status.Busy := TRUE;
+	            #Status.Ready := FALSE;
+	            #Status.Done := FALSE;
+	            #Status.Error := FALSE;
+	            #Valve.Coils.In := FALSE;
+	            #Valve.Coils.Out := TRUE;
+	            RESET_TIMER(#Timers.Stamping.Timer);
+	            RESET_TIMER(#Timers.SetOut.Timer);
+	            RESET_TIMER(#Timers.Stamping.Timer);
+	            #Timers.SetOut.IN := TRUE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
+	            
+	            IF #Timers.Stamping.Timer.Q AND #FirstTry THEN
+	                #Execute := FALSE;
+	                "changeState"(newState := #S_GO_IN,
+	                              Data := #State);
+	            END_IF;
+	            
+	            IF #Timers.SecondPush.Timer.Q AND NOT #FirstTry THEN
+	                #Execute := FALSE;
+	                "changeState"(newState := #S_GO_IN,
+	                              Data := #State);
+	            END_IF;
+	            
+	            IF #Timers.SetOut.Timer.Q THEN
+	                #Status.ErrorStatus := #WatchdogOut;
+	                "changeState"(newState := #S_ERROR,
+	                              Data := #State);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #State.outputFlag THEN
+	            RESET_TIMER(#Timers.Stamping.Timer);
+	            RESET_TIMER(#Timers.SetOut.Timer);
+	            RESET_TIMER(#Timers.SecondPush.Timer);
+	            #Valve.Coils.Out := FALSE;
+	            #Timers.SetOut.IN := FALSE;
+	        END_IF;
+	END_CASE;
+	
+	IF (#Timers.SetOut.Timer.ET > #TimerMax AND #FirstTry) THEN
+	    #ITV.Sensor.Analog.SetValue := #MaxPreasure;
+	ELSIF (#Timers.SetOut.Timer.ET > #TimerSecondPush AND NOT #FirstTry) THEN
+	    #ITV.Sensor.Analog.SetValue := #PreasureSecondPush;
+	ELSIF #Valve.Coils.In THEN
+	    #ITV.Sensor.Analog.SetValue := 3.0;
+	ELSE
+	    #ITV.Sensor.Analog.SetValue := #RegularPreasure;
+	END_IF;
+	
+	REGION Change state
+	    IF #State.inputFlag AND NOT #State.outputFlag THEN
+	        #State.inputFlag := FALSE;
+	    END_IF;
+	    #State.outputFlag := FALSE;
+	END_REGION
+END_FUNCTION_BLOCK
+
