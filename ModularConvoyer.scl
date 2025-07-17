@@ -54,6 +54,7 @@ VERSION : 0.1
          Delay : "s_TON";
          DoubleStamp : "s_TON";
          UnloadTimer {InstructionName := 'TON_TIME'; LibVersion := '1.0'; ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : TON_TIME;
+         OskarDelay : "s_TON";
       END_STRUCT;
       CameraConnectionTCP_Instance { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "CameraConnectionTCP";
       PositioningAxis_Instance { ExternalAccessible := 'False'; ExternalVisible := 'False'; ExternalWritable := 'False'; S7_SetPoint := 'False'} : "ModularAxis";
@@ -97,6 +98,10 @@ BEGIN
 	    #Timers.DoubleStamp.PT := T#500MS;
 	    #Timers.DoubleStamp.Timer(IN := #Timers.DoubleStamp.IN,
 	                              PT := #Timers.DoubleStamp.PT);
+	    
+	    #Timers.OskarDelay.PT := T#5000MS;
+	    #Timers.OskarDelay.Timer(IN := #Timers.OskarDelay.IN,
+	                             PT := #Timers.OskarDelay.PT);
 	    
 	    #Timers.UnloadTimer(IN:=NOT #Convoyer.Sensors.UnloadingPresence,
 	                        PT:=T#1000MS);
@@ -158,6 +163,10 @@ BEGIN
 	            #Convoyer.ConvoyerStatus.Done := FALSE;
 	            #Convoyer.ConvoyerStatus.Error := TRUE;
 	            #Convoyer.ConvoyerStatus.Ready := FALSE;
+	            #Timers.WatchdogGoConvoyer.IN := FALSE;
+	            #Timers.WatchdogGoModules.IN := FALSE;
+	            #Local.Execute.Convoyer := FALSE;
+	            #Local.Execute.Stamping := FALSE;
 	            #Local.Execute.Camera := FALSE;
 	            #Local.AutoMode := FALSE;
 	        END_IF;
@@ -167,6 +176,7 @@ BEGIN
 	            IF  #Local.Buttons.RESET  AND NOT #Convoyer.Alarms.Present AND  #Convoyer.Safety.SafetyOK
 	                AND (#CameraConnectionTCP_Instance.Status.Ready OR NOT #Convoyer.HMI.Camera.Enable) AND #PositioningAxis_Instance.Status.Ready
 	                AND (#Stamping_Instance.Status.Ready OR NOT #Convoyer.HMI.Stamping.Enable) AND #Local.Permission THEN
+	                #Convoyer.ConvoyerStatus.Error := FALSE;
 	                "changeState"(newState := #S_IDLE,
 	                              Data := #State);
 	            END_IF;
@@ -223,6 +233,7 @@ BEGIN
 	    #S_GO_MODULES:
 	        //Funkcja wejścia
 	        IF #State.inputFlag AND NOT #State.outputFlag THEN
+	            #Timers.OskarDelay.IN := TRUE;
 	            #Timers.WatchdogGoModules.IN := TRUE;
 	            #Timers.Delay.IN := TRUE;
 	            #Local.DoubleStampingDone := FALSE;
@@ -240,7 +251,6 @@ BEGIN
 	        END_IF;
 	        //Funkcja cykliczna
 	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
-	            
 	            REGION double stamping
 	                IF #Convoyer.HMI.Stamping.Double AND NOT #Local.DoubleStampingDone AND #Timers.DoubleStamp.Timer.Q THEN
 	                    #Local.StampingTime := #Convoyer.HMI.Stamping.TimerStamping;
@@ -273,8 +283,8 @@ BEGIN
 	                END_IF;
 	            END_IF;
 	            
-	            //Oczekiwanie na potwierdzenia blokow wykonawczych
-	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow THEN
+	            //Oczekiwanie na potwierdzenia blokow  - komentarz -->> to zwloka dla Oskarka
+	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow (* AND #Timers.OskarDelay.Timer.Q *) THEN
 	                IF NOT #Local.AutoMode THEN
 	                    "changeState"(newState := #S_IDLE,
 	                                  Data := #State);
@@ -304,6 +314,7 @@ BEGIN
 	        
 	        //Funkcja wyjściowa 
 	        IF #State.outputFlag THEN
+	            #Timers.OskarDelay.IN := FALSE;
 	            #Timers.DoubleStamp.IN := FALSE;
 	            #Timers.WatchdogGoModules.IN := FALSE;
 	            #Local.Execute.Stamping := FALSE;

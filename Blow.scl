@@ -18,8 +18,11 @@ VERSION : 0.1
 
 
 BEGIN
-	#R_TRIG_Exe(CLK:=#Execute);
-	#R_TRIG_Done(CLK:=#Blow.Timer.Q);
+	REGION r trigs
+	    #R_TRIG_Exe(CLK := #Execute);
+	    #R_TRIG_Done(CLK := #Blow.Timer.Q);
+	END_REGION
+	
 	
 	    #Blow.PT := #Timer;
 	    #Blow.IN := #Execute;
