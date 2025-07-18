@@ -1,8 +1,18 @@
-﻿FUNCTION "FC_09_Retains" : Void
+﻿FUNCTION "FC_09_Retains&HMI" : Void
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Retain values and HMI assigments
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION Retains
 	    "DEV".Retains.Convoyer10A.MaxPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.MaxPreasure;
 	    "DEV".Retains.Convoyer10A.RegularPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.RegularPreasure;

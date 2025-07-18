@@ -14,6 +14,16 @@ VERSION : 0.1
 
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Alarm triggers
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION Alarms Convoyer 10
 	    #Alarms_10A.ESTOP.Main :=NOT "7A_ESTOP_6";
 	    #Alarms_10A.Fault24V := NOT "7_24V_OK";

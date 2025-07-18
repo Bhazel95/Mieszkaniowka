@@ -36,6 +36,71 @@
       <SW.Blocks.CompileUnit ID="3" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
+  <LineComment UId="21">
+    <Text UId="22">************************************************************</Text>
+  </LineComment>
+  <NewLine UId="23" />
+  <LineComment UId="24">
+    <Text UId="25">===Author: Mateusz Połojko</Text>
+  </LineComment>
+  <NewLine UId="26" />
+  <LineComment UId="27">
+    <Text UId="28">-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1</Text>
+  </LineComment>
+  <NewLine UId="29" />
+  <LineComment UId="30">
+    <Text UId="31">-----Github: https://github.com/Bhazel95</Text>
+  </LineComment>
+  <NewLine UId="32" />
+  <LineComment UId="33">
+    <Text UId="34">===Description:</Text>
+  </LineComment>
+  <NewLine UId="35" />
+  <LineComment UId="36">
+    <Text UId="37">-----Diagnostic of hardware components</Text>
+  </LineComment>
+  <NewLine UId="38" />
+  <LineComment UId="39">
+    <Text UId="40">===Customer:</Text>
+  </LineComment>
+  <NewLine UId="41" />
+  <LineComment UId="42">
+    <Text UId="43">-----Apator Powogaz S.A.</Text>
+  </LineComment>
+  <NewLine UId="44" />
+  <LineComment UId="45">
+    <Text UId="46">************************************************************</Text>
+  </LineComment>
+  <NewLine UId="47" />
+</StructuredText></NetworkSource>
+          <ProgrammingLanguage>SCL</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="4" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="5" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="8" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
   <Access Scope="LocalVariable" UId="21">
     <Symbol UId="22">
       <Component Name="Diagnostic" UId="23" />
@@ -916,114 +981,12 @@
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="4" CompositionName="Comment">
-            <ObjectList>
-              <MultilingualTextItem ID="5" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-US</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-          <MultilingualText ID="6" CompositionName="Title">
-            <ObjectList>
-              <MultilingualTextItem ID="7" CompositionName="Items">
-                <AttributeList>
-                  <Culture>en-US</Culture>
-                  <Text />
-                </AttributeList>
-              </MultilingualTextItem>
-            </ObjectList>
-          </MultilingualText>
-        </ObjectList>
-      </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="8" CompositionName="CompileUnits">
-        <AttributeList>
-          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
-  <Parts>
-    <Access Scope="LocalVariable" UId="21">
-      <Symbol>
-        <Component Name="Diagnostic" />
-        <Component Name="ET_200SP" />
-        <Component Name="HeadModule_0" />
-        <Component Name="Mode" />
-      </Symbol>
-    </Access>
-    <Access Scope="LocalVariable" UId="22">
-      <Symbol>
-        <Component Name="Diagnostic" />
-        <Component Name="ET_200SP" />
-        <Component Name="HeadModule_0" />
-        <Component Name="LADDR" />
-      </Symbol>
-    </Access>
-    <Access Scope="LocalVariable" UId="23">
-      <Symbol>
-        <Component Name="Diagnostic" />
-        <Component Name="ET_200SP" />
-        <Component Name="HeadModule_0" />
-        <Component Name="diagDIS" />
-      </Symbol>
-    </Access>
-    <Access Scope="LocalVariable" UId="24">
-      <Symbol>
-        <Component Name="Diagnostic" />
-        <Component Name="ET_200SP" />
-        <Component Name="HeadModule_0" />
-        <Component Name="RetVal" />
-      </Symbol>
-    </Access>
-    <Access Scope="LocalVariable" UId="25">
-      <Symbol>
-        <Component Name="Diagnostic" />
-        <Component Name="ET_200SP" />
-        <Component Name="HeadModule_0" />
-        <Component Name="cntDiag" />
-      </Symbol>
-    </Access>
-    <Part Name="GET_DIAG" Version="1.0" UId="26" />
-  </Parts>
-  <Wires>
-    <Wire UId="28">
-      <Powerrail />
-      <NameCon UId="26" Name="en" />
-    </Wire>
-    <Wire UId="29">
-      <IdentCon UId="21" />
-      <NameCon UId="26" Name="MODE" />
-    </Wire>
-    <Wire UId="30">
-      <IdentCon UId="22" />
-      <NameCon UId="26" Name="LADDR" />
-    </Wire>
-    <Wire UId="31">
-      <IdentCon UId="23" />
-      <NameCon UId="26" Name="DIAG" />
-    </Wire>
-    <Wire UId="32">
-      <OpenCon UId="27" />
-      <NameCon UId="26" Name="DETAIL" />
-    </Wire>
-    <Wire UId="33">
-      <NameCon UId="26" Name="RET_VAL" />
-      <IdentCon UId="24" />
-    </Wire>
-    <Wire UId="34">
-      <NameCon UId="26" Name="CNT_DIAG" />
-      <IdentCon UId="25" />
-    </Wire>
-  </Wires>
-</FlgNet></NetworkSource>
-          <ProgrammingLanguage>LAD</ProgrammingLanguage>
-        </AttributeList>
-        <ObjectList>
           <MultilingualText ID="9" CompositionName="Comment">
             <ObjectList>
               <MultilingualTextItem ID="A" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
-                  <Text>ET 200SP - MODUL GLOWNY</Text>
+                  <Text />
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -1048,7 +1011,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="BusAdapter_1" />
+        <Component Name="HeadModule_0" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1056,7 +1019,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="BusAdapter_1" />
+        <Component Name="HeadModule_0" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1064,7 +1027,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="BusAdapter_1" />
+        <Component Name="HeadModule_0" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1072,7 +1035,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="BusAdapter_1" />
+        <Component Name="HeadModule_0" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1080,7 +1043,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="BusAdapter_1" />
+        <Component Name="HeadModule_0" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1125,7 +1088,7 @@
               <MultilingualTextItem ID="F" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
-                  <Text>MODUL ET 200AL </Text>
+                  <Text>ET 200SP - MODUL GLOWNY</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -1150,7 +1113,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_2" />
+        <Component Name="BusAdapter_1" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1158,7 +1121,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_2" />
+        <Component Name="BusAdapter_1" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1166,7 +1129,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_2" />
+        <Component Name="BusAdapter_1" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1174,7 +1137,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_2" />
+        <Component Name="BusAdapter_1" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1182,7 +1145,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_2" />
+        <Component Name="BusAdapter_1" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1227,8 +1190,7 @@
               <MultilingualTextItem ID="14" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
-                  <Text>Modul safety 1
-</Text>
+                  <Text>MODUL ET 200AL </Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -1253,7 +1215,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_3" />
+        <Component Name="InputSafety_2" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1261,7 +1223,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_3" />
+        <Component Name="InputSafety_2" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1269,7 +1231,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_3" />
+        <Component Name="InputSafety_2" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1277,7 +1239,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_3" />
+        <Component Name="InputSafety_2" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1285,7 +1247,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_3" />
+        <Component Name="InputSafety_2" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1330,7 +1292,8 @@
               <MultilingualTextItem ID="19" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
-                  <Text />
+                  <Text>Modul safety 1
+</Text>
                 </AttributeList>
               </MultilingualTextItem>
             </ObjectList>
@@ -1355,7 +1318,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_4" />
+        <Component Name="InputSafety_3" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1363,7 +1326,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_4" />
+        <Component Name="InputSafety_3" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1371,7 +1334,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_4" />
+        <Component Name="InputSafety_3" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1379,7 +1342,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_4" />
+        <Component Name="InputSafety_3" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1387,7 +1350,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_4" />
+        <Component Name="InputSafety_3" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1457,7 +1420,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_5" />
+        <Component Name="InputSafety_4" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1465,7 +1428,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_5" />
+        <Component Name="InputSafety_4" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1473,7 +1436,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_5" />
+        <Component Name="InputSafety_4" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1481,7 +1444,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_5" />
+        <Component Name="InputSafety_4" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1489,7 +1452,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_5" />
+        <Component Name="InputSafety_4" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1559,7 +1522,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_6" />
+        <Component Name="InputSafety_5" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1567,7 +1530,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_6" />
+        <Component Name="InputSafety_5" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1575,7 +1538,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_6" />
+        <Component Name="InputSafety_5" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1583,7 +1546,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_6" />
+        <Component Name="InputSafety_5" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1591,7 +1554,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputSafety_6" />
+        <Component Name="InputSafety_5" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1661,7 +1624,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputSafety_7" />
+        <Component Name="InputSafety_6" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1669,7 +1632,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputSafety_7" />
+        <Component Name="InputSafety_6" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1677,7 +1640,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputSafety_7" />
+        <Component Name="InputSafety_6" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1685,7 +1648,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputSafety_7" />
+        <Component Name="InputSafety_6" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1693,7 +1656,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputSafety_7" />
+        <Component Name="InputSafety_6" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1763,7 +1726,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_9" />
+        <Component Name="OutputSafety_7" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1771,7 +1734,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_9" />
+        <Component Name="OutputSafety_7" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1779,7 +1742,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_9" />
+        <Component Name="OutputSafety_7" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1787,7 +1750,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_9" />
+        <Component Name="OutputSafety_7" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1795,7 +1758,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_9" />
+        <Component Name="OutputSafety_7" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1865,7 +1828,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_10" />
+        <Component Name="RelaySafety_9" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1873,7 +1836,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_10" />
+        <Component Name="RelaySafety_9" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1881,7 +1844,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_10" />
+        <Component Name="RelaySafety_9" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1889,7 +1852,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_10" />
+        <Component Name="RelaySafety_9" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1897,7 +1860,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="RelaySafety_10" />
+        <Component Name="RelaySafety_9" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -1967,7 +1930,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_11" />
+        <Component Name="RelaySafety_10" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -1975,7 +1938,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_11" />
+        <Component Name="RelaySafety_10" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -1983,7 +1946,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_11" />
+        <Component Name="RelaySafety_10" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -1991,7 +1954,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_11" />
+        <Component Name="RelaySafety_10" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -1999,7 +1962,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_11" />
+        <Component Name="RelaySafety_10" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2069,7 +2032,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_12" />
+        <Component Name="InputsDigital_11" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2077,7 +2040,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_12" />
+        <Component Name="InputsDigital_11" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2085,7 +2048,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_12" />
+        <Component Name="InputsDigital_11" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2093,7 +2056,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_12" />
+        <Component Name="InputsDigital_11" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2101,7 +2064,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_12" />
+        <Component Name="InputsDigital_11" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2171,7 +2134,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_13" />
+        <Component Name="InputsDigital_12" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2179,7 +2142,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_13" />
+        <Component Name="InputsDigital_12" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2187,7 +2150,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_13" />
+        <Component Name="InputsDigital_12" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2195,7 +2158,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_13" />
+        <Component Name="InputsDigital_12" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2203,7 +2166,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputsDigital_13" />
+        <Component Name="InputsDigital_12" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2273,7 +2236,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputAnalog_14" />
+        <Component Name="InputsDigital_13" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2281,7 +2244,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputAnalog_14" />
+        <Component Name="InputsDigital_13" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2289,7 +2252,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputAnalog_14" />
+        <Component Name="InputsDigital_13" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2297,7 +2260,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputAnalog_14" />
+        <Component Name="InputsDigital_13" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2305,7 +2268,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="InputAnalog_14" />
+        <Component Name="InputsDigital_13" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2375,7 +2338,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_15" />
+        <Component Name="InputAnalog_14" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2383,7 +2346,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_15" />
+        <Component Name="InputAnalog_14" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2391,7 +2354,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_15" />
+        <Component Name="InputAnalog_14" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2399,7 +2362,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_15" />
+        <Component Name="InputAnalog_14" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2407,7 +2370,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_15" />
+        <Component Name="InputAnalog_14" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2477,7 +2440,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_16" />
+        <Component Name="OutputDigital_15" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2485,7 +2448,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_16" />
+        <Component Name="OutputDigital_15" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2493,7 +2456,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_16" />
+        <Component Name="OutputDigital_15" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2501,7 +2464,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_16" />
+        <Component Name="OutputDigital_15" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2509,7 +2472,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_16" />
+        <Component Name="OutputDigital_15" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2579,7 +2542,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_17" />
+        <Component Name="OutputDigital_16" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2587,7 +2550,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_17" />
+        <Component Name="OutputDigital_16" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2595,7 +2558,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_17" />
+        <Component Name="OutputDigital_16" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2603,7 +2566,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_17" />
+        <Component Name="OutputDigital_16" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2611,7 +2574,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_17" />
+        <Component Name="OutputDigital_16" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2681,7 +2644,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_18" />
+        <Component Name="OutputDigital_17" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2689,7 +2652,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_18" />
+        <Component Name="OutputDigital_17" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2697,7 +2660,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_18" />
+        <Component Name="OutputDigital_17" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2705,7 +2668,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_18" />
+        <Component Name="OutputDigital_17" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2713,7 +2676,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputDigital_18" />
+        <Component Name="OutputDigital_17" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2783,7 +2746,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputAnalog_19" />
+        <Component Name="OutputDigital_18" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2791,7 +2754,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputAnalog_19" />
+        <Component Name="OutputDigital_18" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2799,7 +2762,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputAnalog_19" />
+        <Component Name="OutputDigital_18" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2807,7 +2770,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputAnalog_19" />
+        <Component Name="OutputDigital_18" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2815,7 +2778,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="OutputAnalog_19" />
+        <Component Name="OutputDigital_18" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2885,7 +2848,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="ET_200AL_1" />
+        <Component Name="OutputAnalog_19" />
         <Component Name="Mode" />
       </Symbol>
     </Access>
@@ -2893,7 +2856,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="ET_200AL_1" />
+        <Component Name="OutputAnalog_19" />
         <Component Name="LADDR" />
       </Symbol>
     </Access>
@@ -2901,7 +2864,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="ET_200AL_1" />
+        <Component Name="OutputAnalog_19" />
         <Component Name="diagDIS" />
       </Symbol>
     </Access>
@@ -2909,7 +2872,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="ET_200AL_1" />
+        <Component Name="OutputAnalog_19" />
         <Component Name="RetVal" />
       </Symbol>
     </Access>
@@ -2917,7 +2880,7 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
-        <Component Name="ET_200AL_1" />
+        <Component Name="OutputAnalog_19" />
         <Component Name="cntDiag" />
       </Symbol>
     </Access>
@@ -2987,6 +2950,108 @@
       <Symbol>
         <Component Name="Diagnostic" />
         <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_1" />
+        <Component Name="Mode" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="22">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_1" />
+        <Component Name="LADDR" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="23">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_1" />
+        <Component Name="diagDIS" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="24">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_1" />
+        <Component Name="RetVal" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="25">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_1" />
+        <Component Name="cntDiag" />
+      </Symbol>
+    </Access>
+    <Part Name="GET_DIAG" Version="1.0" UId="26" />
+  </Parts>
+  <Wires>
+    <Wire UId="28">
+      <Powerrail />
+      <NameCon UId="26" Name="en" />
+    </Wire>
+    <Wire UId="29">
+      <IdentCon UId="21" />
+      <NameCon UId="26" Name="MODE" />
+    </Wire>
+    <Wire UId="30">
+      <IdentCon UId="22" />
+      <NameCon UId="26" Name="LADDR" />
+    </Wire>
+    <Wire UId="31">
+      <IdentCon UId="23" />
+      <NameCon UId="26" Name="DIAG" />
+    </Wire>
+    <Wire UId="32">
+      <OpenCon UId="27" />
+      <NameCon UId="26" Name="DETAIL" />
+    </Wire>
+    <Wire UId="33">
+      <NameCon UId="26" Name="RET_VAL" />
+      <IdentCon UId="24" />
+    </Wire>
+    <Wire UId="34">
+      <NameCon UId="26" Name="CNT_DIAG" />
+      <IdentCon UId="25" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="6D" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="6E" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="6F" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="70" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="71" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+  <Parts>
+    <Access Scope="LocalVariable" UId="21">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
         <Component Name="ET_200AL_2" />
         <Component Name="Mode" />
       </Symbol>
@@ -3059,9 +3124,9 @@
           <ProgrammingLanguage>LAD</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="6D" CompositionName="Comment">
+          <MultilingualText ID="72" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="6E" CompositionName="Items">
+              <MultilingualTextItem ID="73" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3069,9 +3134,9 @@
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="6F" CompositionName="Title">
+          <MultilingualText ID="74" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="70" CompositionName="Items">
+              <MultilingualTextItem ID="75" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3081,7 +3146,7 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="71" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="76" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
   <Parts>
@@ -3156,9 +3221,9 @@
           <ProgrammingLanguage>LAD</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="72" CompositionName="Comment">
+          <MultilingualText ID="77" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="73" CompositionName="Items">
+              <MultilingualTextItem ID="78" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3166,9 +3231,9 @@
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="74" CompositionName="Title">
+          <MultilingualText ID="79" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="75" CompositionName="Items">
+              <MultilingualTextItem ID="7A" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3178,7 +3243,7 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="76" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="7B" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
   <Access Scope="LocalVariable" UId="21">
@@ -3720,9 +3785,9 @@
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="77" CompositionName="Comment">
+          <MultilingualText ID="7C" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="78" CompositionName="Items">
+              <MultilingualTextItem ID="7D" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Diagnostyka dla szafy 1</Text>
@@ -3730,9 +3795,9 @@
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="79" CompositionName="Title">
+          <MultilingualText ID="7E" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="7A" CompositionName="Items">
+              <MultilingualTextItem ID="7F" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3742,9 +3807,9 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <MultilingualText ID="7B" CompositionName="Title">
+      <MultilingualText ID="80" CompositionName="Title">
         <ObjectList>
-          <MultilingualTextItem ID="7C" CompositionName="Items">
+          <MultilingualTextItem ID="81" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
               <Text />

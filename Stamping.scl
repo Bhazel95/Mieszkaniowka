@@ -47,6 +47,16 @@ VERSION : 0.1
 
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Stamping control
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION #Timers
 	    #Timers.SetIn.PT := #Valve.Timers.In;
 	    #Timers.SetIn.Timer(IN := #Timers.SetIn.IN,

@@ -3,6 +3,16 @@
 VERSION : 0.1
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Hardware input assigment
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION Button box left
 	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.ButtonReset := "7A_BUTTON_RESET_1";
 	    "DEV".Convoyer_7.Modular_7A.ButtonControl.ButtonBoxLeft.ButtonStart := "7A_BUTTON_START_1";

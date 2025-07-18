@@ -74,6 +74,16 @@ VERSION : 0.1
 
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Main function block for convoyer + executive modules control
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION R/F_TRIG
 	    #R_TRIG_CriticalError(CLK := NOT #Convoyer.Safety.SafetyOK OR #PositioningAxis_Instance.Status.Error);
 	    #R_TRIG_StampingDone(CLK := #Stamping_Instance.Status.Done);
