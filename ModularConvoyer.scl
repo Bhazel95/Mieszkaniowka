@@ -111,7 +111,7 @@ BEGIN
 	#Local.Permission := #Diagnostic.DiagnosticOK AND #Convoyer.Safety.SafetyOK
 	AND NOT #Convoyer.Alarms.Present AND #Convoyer.Pneumatics.Stamping.Sensors.In
 	AND NOT #Convoyer.Pneumatics.Stamping.Sensors.Out AND (#Convoyer.CameraStatus.Ready OR NOT #Convoyer.HMI.Camera.Enable)
-	AND #Convoyer.MotorStatus.Ready AND #Convoyer.Sensors.Stamp_Check_1 AND #Convoyer.Sensors.UnloadingPresence;
+	AND #Convoyer.MotorStatus.Ready AND #Convoyer.Sensors.Stamp_Check_1 AND #Convoyer.Sensors.UnloadingPresence AND #Convoyer.Sensors.Span;
 	
 	//Start button
 	#Local.Buttons.START := #Convoyer.ButtonControl.ButtonBoxLeft.ButtonStart OR #Convoyer.ButtonControl.ButtonBoxRight.ButtonStart OR #Convoyer.HMI.Buttons.Start;
