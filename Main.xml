@@ -281,7 +281,7 @@
           <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
   <Parts>
     <Call UId="21">
-      <CallInfo Name="FC_09_Retains" BlockType="FC" />
+      <CallInfo Name="FC_09_Retains&amp;HMI" BlockType="FC" />
     </Call>
   </Parts>
   <Wires>

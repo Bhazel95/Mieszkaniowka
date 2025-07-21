@@ -49,7 +49,7 @@ BEGIN
 	    "7A_VALVE_IN_2" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Valve.Coils.In;
 	    "7A_VALVE_OUT_2" := "DEV".Convoyer_7.Modular_7A.Pneumatics.Valve.Coils.Out;
 	    
-	    IF "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK THEN
+	    IF "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK AND "DEV".Convoyer_7.Modular_7A.Sensors.Span THEN
 	        "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm := NORM_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Analog.SetValue, MAX := 7);
 	        "7A_IVT_OutputSignal_1" := SCALE_X(MIN := 0, VALUE := "DEV".Convoyer_7.Modular_7A.Pneumatics.IVT.Sensor.Scaled.SetNorm, MAX := 32767);
 	    ELSE
