@@ -95,13 +95,13 @@ BEGIN
 	
 	REGION Timers
 	    //WATCHDOG MACHINE START
-	    #Timers.WatchdogGoModules.PT := T#20S;
+	    #Timers.WatchdogGoModules.PT := T#15S;
 	    #Timers.WatchdogGoModules.Timer(IN := #Timers.WatchdogGoModules.IN,
 	                                    PT := #Timers.WatchdogGoModules.PT);
 	    #Timers.WatchdogGoConvoyer.PT := T#10S;
 	    #Timers.WatchdogGoConvoyer.Timer(IN := #Timers.WatchdogGoConvoyer.IN,
 	                                     PT := #Timers.WatchdogGoConvoyer.PT);
-	    #Timers.Delay.PT := T#10S;
+	    #Timers.Delay.PT := T#7S;
 	    #Timers.Delay.Timer(IN := #Timers.Delay.IN,
 	                        PT := #Timers.Delay.PT);
 	    
@@ -309,7 +309,7 @@ BEGIN
 	                END_IF;
 	            END_IF;
 	            //Modules Error
-	            IF (#CameraConnectionTCP_Instance.Status.Error OR #Stamping_Instance.Status.Error (*OR #Convoyer.Modular.SortingStatus.Error*)) AND #Timers.Delay.Timer.Q THEN
+	            IF (#CameraConnectionTCP_Instance.Status.Error OR #Stamping_Instance.Status.Error) AND #Timers.Delay.Timer.Q THEN
 	                "changeState"(newState := #S_ERROR,
 	                              Data := #State);
 	            END_IF;
@@ -324,6 +324,7 @@ BEGIN
 	        
 	        //Funkcja wyjściowa 
 	        IF #State.outputFlag THEN
+	            #Timers.Delay.IN := FALSE;
 	            #Timers.OskarDelay.IN := FALSE;
 	            #Timers.DoubleStamp.IN := FALSE;
 	            #Timers.WatchdogGoModules.IN := FALSE;
