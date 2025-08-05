@@ -38,7 +38,7 @@ BEGIN
 	            #Alarms_10A.Door.Unload := NOT "7A_DOOR_5" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.UnloadDoor;
 	        END_REGION
 	        REGION Light curtain
-	            #Alarms_10A.LightCurtain.Front := (("DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.In OR "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.Out) AND NOT "7A_LIGHT_CURTAIN_1") OR ("DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET AND NOT "7A_LIGHT_CURTAIN_1");
+	            #Alarms_10A.LightCurtain.Front := (("DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.In OR "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.Out) AND NOT "7A_LIGHT_CURTAIN_1") OR ( NOT "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK AND NOT"7A_LIGHT_CURTAIN_1");
 	        END_REGION
 	        
 	        REGION INVERTER
@@ -108,7 +108,7 @@ BEGIN
 	        
 	        #Alarms_10A.CriticalALarm := #Alarms_10A.ESTOP.Left OR #Alarms_10A.ESTOP.Right OR #Alarms_10A.ESTOP.Main OR
 	        #Alarms_10A.Door.Front OR #Alarms_10A.Door.Back OR #Alarms_10A.Door.Unload;
-	        #Alarms_10A.Present := #Alarms_10A.CriticalALarm OR #StatusCamera_10A.Error OR #StatusInverter_10A.Error OR #StatusStamping_10A.Error OR NOT #Diagnostic.DiagnosticOK OR NOT #Alarms_10A.Pneumatics.Span;
+	        #Alarms_10A.Present := #Alarms_10A.CriticalALarm OR #StatusCamera_10A.Error OR #StatusInverter_10A.Error OR #StatusStamping_10A.Error OR NOT #Diagnostic.DiagnosticOK OR #Alarms_10A.Pneumatics.Span;
 	        IF #Alarms_10A.Present THEN
 	            "DEV".Convoyer_7.Modular_7A.HMI.Page.Number := 1;
 	        ELSE

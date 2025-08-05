@@ -147,7 +147,6 @@ BEGIN
 	            IF #Convoyer.MotorControl.MC_MOVEJOG.JogBackward OR #Convoyer.MotorControl.MC_MOVEJOG.JogForward THEN
 	                #Local.isMoved := TRUE;
 	            END_IF;
-	            
 	            IF #Convoyer.Safety.LightCurtain_Stamping AND #Local.Permission AND (#Local.Buttons.START OR #Local.AutoMode) AND NOT #Local.Buttons.STOP AND NOT #Local.Buttons.RESET THEN
 	                #Local.AutoMode := TRUE;
 	                IF ((NOT #Convoyer.Sensors.StampingPresence AND NOT #Local.ActionDone.Stamping) OR (NOT #Convoyer.Sensors.CameraPresence AND NOT #Local.ActionDone.Camera)) AND NOT #Local.isMoved THEN
@@ -216,12 +215,10 @@ BEGIN
 	                                  Data := #State);
 	                END_IF;
 	            END_IF;
-	            
 	            IF #PositioningAxis_Instance.Status.Error THEN
 	                "changeState"(newState := #S_ERROR,
 	                              Data := #State);
 	            END_IF;
-	            
 	            //WATCHDOG
 	            IF #Timers.WatchdogGoConvoyer.Timer.Q THEN
 	                #PositioningAxis_Instance.Status.ErrorStatus := #E_CONVOYER_TIMEOUT;
@@ -252,8 +249,7 @@ BEGIN
 	            ELSE
 	                #Local.StampingTime:= #Convoyer.HMI.Stamping.TimerStamping;
 	            END_IF;
-	            
-	            #Local.Execute.Blow := NOT #Convoyer.Sensors.BlowPresence AND #Convoyer.HMI.Blow.Enable;
+	            #Local.Execute.Blow := #Convoyer.Sensors.BlowPresence AND #Convoyer.HMI.Blow.Enable;
 	            #Local.Execute.Stamping := NOT #Local.ActionDone.Stamping AND NOT #Convoyer.Sensors.StampingPresence AND #Convoyer.HMI.Stamping.Enable;
 	            #Local.Execute.Camera := NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence AND #Convoyer.HMI.Camera.Enable;
 	            #Local.ActionToDo.Stamping := #Local.Execute.Stamping;
@@ -293,7 +289,7 @@ BEGIN
 	                END_IF;
 	            END_IF;
 	            
-	            //Oczekiwanie na potwierdzenia blokow  - komentarz -->> to zwloka dla Oskarka
+	            //Oczekiwanie na potwierdzenia blokow  - komentarz -->> opoznienie zalaczenia ruchu stolu dla Oskara
 	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow (* AND #Timers.OskarDelay.Timer.Q *) THEN
 	                IF NOT #Local.AutoMode THEN
 	                    "changeState"(newState := #S_IDLE,
