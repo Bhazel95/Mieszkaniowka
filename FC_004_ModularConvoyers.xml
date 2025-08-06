@@ -122,7 +122,7 @@
       <Symbol>
         <Component Name="DEV" />
         <Component Name="Retains" />
-        <Component Name="Convoyer10A" />
+        <Component Name="Convoyer7A" />
         <Component Name="ProducedUnits" />
       </Symbol>
     </Access>

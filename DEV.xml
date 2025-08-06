@@ -138,7 +138,7 @@
       </Sections>
     </Member>
     <Member Name="Retains" Datatype="Struct" Remanence="Retain">
-      <Member Name="Convoyer10A" Datatype="Struct">
+      <Member Name="Convoyer7A" Datatype="Struct">
         <Member Name="RegularPreasure" Datatype="Real" />
         <Member Name="MaxPreasure" Datatype="Real" />
         <Member Name="TimeMaxPreasure" Datatype="Time" />
