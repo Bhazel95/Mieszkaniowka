@@ -72,8 +72,14 @@ BEGIN
 	REGION HMI RECIPE
 	IF "DEV".Recipes.Convoyer7.A.Type THEN
 	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping := "DEV".Recipes.Convoyer7.A.StampingPL;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Camera.Enable := "DEV".Recipes.Convoyer7.A.SettingsPL.Camera;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Blow.Enable := "DEV".Recipes.Convoyer7.A.SettingsPL.Blow;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Blow."Time" := "DEV".Recipes.Convoyer7.A.SettingsPL.BlowTime;
 	ELSE
 	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping := "DEV".Recipes.Convoyer7.A.StampingCN;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Camera.Enable := "DEV".Recipes.Convoyer7.A.SettingsCN.Camera;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Blow.Enable := "DEV".Recipes.Convoyer7.A.SettingsCN.Blow;
+	    "DEV".Convoyer_7.Modular_7A.HMI.Blow."Time" := "DEV".Recipes.Convoyer7.A.SettingsCN.BlowTime;
 	END_IF;
 	END_REGION
 	

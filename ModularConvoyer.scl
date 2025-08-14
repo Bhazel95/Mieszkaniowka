@@ -44,6 +44,7 @@ VERSION : 0.1
             Stamping : Bool;
             Camera : Bool;
             Blow : Bool;
+            PreCamera : Array[0..1] of Bool;
          END_STRUCT;
          DoubleStampingDone : Bool;
          StampingTime : Time;
@@ -223,6 +224,10 @@ BEGIN
 	        //Funkcja wejścia
 	        IF #State.inputFlag AND NOT #State.outputFlag THEN
 	            #Timers.WatchdogGoConvoyer.IN := TRUE;
+	            #Local.ActionDone.Stamping := FALSE;
+	            #Local.ActionDone.Camera := FALSE;
+	            #Local.ActionDone.Sorting := FALSE;
+	            #Local.ActionToDo.PreCamera[1] := #Local.ActionToDo.PreCamera[0];
 	            #Local.Execute.Convoyer := TRUE;
 	        END_IF;
 	        
@@ -274,9 +279,10 @@ BEGIN
 	            END_IF;
 	            #Local.Execute.Blow := #Convoyer.Sensors.BlowPresence AND #Convoyer.HMI.Blow.Enable;
 	            #Local.Execute.Stamping := NOT #Local.ActionDone.Stamping AND NOT #Convoyer.Sensors.StampingPresence AND #Convoyer.HMI.Stamping.Enable;
-	            #Local.Execute.Camera := NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence AND #Convoyer.HMI.Camera.Enable;
+	            #Local.Execute.Camera := ((NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence)OR #Local.ActionToDo.PreCamera[1]) AND #Convoyer.HMI.Camera.Enable;
 	            #Local.ActionToDo.Stamping := #Local.Execute.Stamping;
 	            #Local.ActionToDo.Camera := #Local.Execute.Camera;
+	            #Local.ActionToDo.PreCamera[0] := #Convoyer.Sensors.BlowPresence; //DODANE ABY ZOBACZYC CZY WYELIMINUJE BLAD BRAKU ZDJEC
 	        END_IF;
 	        //Funkcja cykliczna
 	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
