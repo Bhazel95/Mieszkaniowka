@@ -115,7 +115,7 @@
       <Symbol>
         <Component Name="DEV" />
         <Component Name="Convoyer_7" />
-        <Component Name="Diagnostic" />
+        <Component Name="Diagnostic_7" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="24">
@@ -126,10 +126,48 @@
         <Component Name="ProducedUnits" />
       </Symbol>
     </Access>
-    <Call UId="25">
+    <Access Scope="GlobalVariable" UId="25">
+      <Symbol>
+        <Component Name="Modular7B" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="26">
+      <Symbol>
+        <Component Name="DEV" />
+        <Component Name="Convoyer_7" />
+        <Component Name="Modular_7B" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="27">
+      <Symbol>
+        <Component Name="DEV" />
+        <Component Name="Convoyer_7" />
+        <Component Name="Diagnostic_7" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="28">
+      <Symbol>
+        <Component Name="DEV" />
+        <Component Name="Retains" />
+        <Component Name="Convoyer7B" />
+        <Component Name="ProducedUnits" />
+      </Symbol>
+    </Access>
+    <Call UId="29">
       <CallInfo Name="ModularConvoyer" BlockType="FB">
-        <Instance Scope="GlobalVariable" UId="26">
+        <Instance Scope="GlobalVariable" UId="30">
           <Component Name="ModularConvoyer_7A_DB" />
+        </Instance>
+        <Parameter Name="Axis" Section="Input" Type="TO_PositioningAxis" />
+        <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_10&quot;" />
+        <Parameter Name="Diagnostic" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
+        <Parameter Name="ProducedUnits" Section="InOut" Type="DInt" />
+      </CallInfo>
+    </Call>
+    <Call UId="31">
+      <CallInfo Name="ModularConvoyer" BlockType="FB">
+        <Instance Scope="GlobalVariable" UId="32">
+          <Component Name="ModularConvoyer_7B_DB" />
         </Instance>
         <Parameter Name="Axis" Section="Input" Type="TO_PositioningAxis" />
         <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_10&quot;" />
@@ -139,25 +177,42 @@
     </Call>
   </Parts>
   <Wires>
-    <Wire UId="27">
+    <Wire UId="33">
       <Powerrail />
-      <NameCon UId="25" Name="en" />
+      <NameCon UId="29" Name="en" />
+      <NameCon UId="31" Name="en" />
     </Wire>
-    <Wire UId="28">
+    <Wire UId="34">
       <IdentCon UId="21" />
-      <NameCon UId="25" Name="Axis" />
+      <NameCon UId="29" Name="Axis" />
     </Wire>
-    <Wire UId="29">
+    <Wire UId="35">
       <IdentCon UId="22" />
-      <NameCon UId="25" Name="Convoyer" />
+      <NameCon UId="29" Name="Convoyer" />
     </Wire>
-    <Wire UId="30">
+    <Wire UId="36">
       <IdentCon UId="23" />
-      <NameCon UId="25" Name="Diagnostic" />
+      <NameCon UId="29" Name="Diagnostic" />
     </Wire>
-    <Wire UId="31">
+    <Wire UId="37">
       <IdentCon UId="24" />
-      <NameCon UId="25" Name="ProducedUnits" />
+      <NameCon UId="29" Name="ProducedUnits" />
+    </Wire>
+    <Wire UId="38">
+      <IdentCon UId="25" />
+      <NameCon UId="31" Name="Axis" />
+    </Wire>
+    <Wire UId="39">
+      <IdentCon UId="26" />
+      <NameCon UId="31" Name="Convoyer" />
+    </Wire>
+    <Wire UId="40">
+      <IdentCon UId="27" />
+      <NameCon UId="31" Name="Diagnostic" />
+    </Wire>
+    <Wire UId="41">
+      <IdentCon UId="28" />
+      <NameCon UId="31" Name="ProducedUnits" />
     </Wire>
   </Wires>
 </FlgNet></NetworkSource>

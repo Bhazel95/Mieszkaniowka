@@ -1,4 +1,4 @@
-﻿FUNCTION "FC_09_Retains&HMI" : Void
+﻿FUNCTION "FC_09_HMI" : Void
 { S7_Optimized_Access := 'TRUE' }
 VERSION : 0.1
 
@@ -8,25 +8,14 @@ BEGIN
 	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
 	//-----Github: https://github.com/Bhazel95
 	//===Description:
-	//-----Retain values and HMI assigments
+	//-----HMI assigments
 	//===Customer:
 	//-----Apator Powogaz S.A.
 	//************************************************************
 	
-	REGION Retains
-	    "DEV".Retains.Convoyer7A.MaxPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.MaxPreasure;
-	    "DEV".Retains.Convoyer7A.RegularPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.RegularPreasure;
-	    "DEV".Retains.Convoyer7A.TimeMaxPreasure := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerMaxPreasure;
-	    "DEV".Retains.Convoyer7A.TimeStamping := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerStamping;
-	    
-	    "DEV".Retains.Convoyer7A.SecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPush;
-	    "DEV".Retains.Convoyer7A.PreasureSecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPreasure;
-	    "DEV".Retains.Convoyer7A.TimeSecondPush := "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerSecond;
-	END_REGION
-	
-	REGION HMI    
+	REGION Camera state  
 	    "DEV".Convoyer_7.Modular_7A.HMI.Camera.State := "ModularConvoyer_7A_DB".CameraConnectionTCP_Instance.State.name;
-	    
+	    "DEV".Convoyer_7.Modular_7B.HMI.Camera.State := "ModularConvoyer_7B_DB".CameraConnectionTCP_Instance.State.name;
 	END_REGION
 	
 END_FUNCTION

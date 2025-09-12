@@ -4,22 +4,19 @@ TITLE = "Complete Restart"
 VERSION : 0.1
 
 BEGIN
-	REGION Retains
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.MaxPreasure := "DEV".Retains.Convoyer7A.MaxPreasure;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.RegularPreasure := "DEV".Retains.Convoyer7A.RegularPreasure;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerMaxPreasure := "DEV".Retains.Convoyer7A.TimeMaxPreasure;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerStamping := "DEV".Retains.Convoyer7A.TimeStamping;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPush := "DEV".Retains.Convoyer7A.SecondPush;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.SecondPreasure := "DEV".Retains.Convoyer7A.PreasureSecondPush;
-	    "DEV".Convoyer_7.Modular_7A.HMI.Stamping.TimerSecond := "DEV".Retains.Convoyer7A.TimeSecondPush;
-	END_REGION
 	REGION Motor
 	    "DEV".Convoyer_7.Modular_7A.MotorControl.MC_MOVEJOG.Velocity := 50;
 	    "DEV".Convoyer_7.Modular_7A.MotorControl.MC_MOVEJOG.Acceleration := 60;
 	    "DEV".Convoyer_7.Modular_7A.MotorControl.MC_MOVEJOG.Deceleration := 120;
+	    
+	    "DEV".Convoyer_7.Modular_7B.MotorControl.MC_MOVEJOG.Velocity := 50;
+	    "DEV".Convoyer_7.Modular_7B.MotorControl.MC_MOVEJOG.Acceleration := 60;
+	    "DEV".Convoyer_7.Modular_7B.MotorControl.MC_MOVEJOG.Deceleration := 120;
+	    
 	END_REGION
 	REGION SKIP FIRST SOCKET
 	    "ModularConvoyer_7A_DB".Local.isMoved := TRUE;
+	    "ModularConvoyer_7B_DB".Local.isMoved := TRUE;
 	END_REGION
 	
 	

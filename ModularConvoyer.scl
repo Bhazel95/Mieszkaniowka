@@ -127,8 +127,8 @@ BEGIN
 	    #Timers.GoBackward.Timer(IN := #Timers.GoBackward.IN,
 	                             PT := #Timers.GoBackward.PT);
 	    
-	    #Timers.UnloadTimer(IN:=NOT #Convoyer.Sensors.UnloadingPresence,
-	                        PT:=T#1000MS);
+	    #Timers.UnloadTimer(IN := NOT #Convoyer.Sensors.UnloadingPresence,
+	                        PT := T#1000MS);
 	END_REGION
 	
 	//Permission to start
@@ -168,15 +168,15 @@ BEGIN
 	            IF #Convoyer.Safety.LightCurtain_Stamping AND #Local.PermissionToStart AND (#Local.Buttons.START OR #Local.AutoMode) AND NOT #Local.Buttons.STOP AND NOT #Local.Buttons.RESET THEN
 	                #Local.AutoMode := TRUE;
 	                IF ((NOT #Convoyer.Sensors.StampingPresence AND NOT #Local.ActionDone.Stamping) OR (NOT #Convoyer.Sensors.CameraPresence AND NOT #Local.ActionDone.Camera)) AND NOT #Local.isMoved THEN
-	                        "changeState"(newState := #S_GO_MODULES,
-	                                      Data := #State);
+	                    "changeState"(newState := #S_GO_MODULES,
+	                                  Data := #State);
 	                ELSIF ((#Local.ActionDone.Stamping OR #Convoyer.Sensors.StampingPresence) AND (#Local.ActionDone.Camera OR #Convoyer.Sensors.CameraPresence)) OR #Local.isMoved THEN
-	                        "changeState"(newState := #S_GO_CONVOYER,
-	                                      Data := #State);
+	                    "changeState"(newState := #S_GO_CONVOYER,
+	                                  Data := #State);
 	                END_IF;
 	            END_IF;
 	            //COFANIE TRANSPORTERA
-	            IF NOT #Local.AutoMode AND  #Local.PermissionGoBack AND #Timers.GoBackwardEnable.Timer.Q AND NOT #Local.Buttons.START AND NOT #Local.Buttons.STOP THEN
+	            IF NOT #Local.AutoMode AND #Local.PermissionGoBack AND #Timers.GoBackwardEnable.Timer.Q AND NOT #Local.Buttons.START AND NOT #Local.Buttons.STOP THEN
 	                "changeState"(newState := #S_GO_BACK,
 	                              Data := #State);
 	            END_IF;
@@ -201,12 +201,13 @@ BEGIN
 	            #Local.Execute.Convoyer := FALSE;
 	            #Local.Execute.Stamping := FALSE;
 	            #Local.Execute.Camera := FALSE;
+	            //#Local.ActionDone.Camera := FALSE;
 	            #Local.AutoMode := FALSE;
 	        END_IF;
 	        
 	        //Funkcja cykliczna
 	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
-	            IF  #Local.Buttons.RESET  AND NOT #Convoyer.Alarms.Present AND  #Convoyer.Safety.SafetyOK
+	            IF #Local.Buttons.RESET AND NOT #Convoyer.Alarms.Present AND #Convoyer.Safety.SafetyOK
 	                AND (#CameraConnectionTCP_Instance.Status.Ready OR NOT #Convoyer.HMI.Camera.Enable) AND #PositioningAxis_Instance.Status.Ready
 	                AND (#Stamping_Instance.Status.Ready OR NOT #Convoyer.HMI.Stamping.Enable) AND #Local.PermissionToStart THEN
 	                #Convoyer.ConvoyerStatus.Error := FALSE;
@@ -275,11 +276,13 @@ BEGIN
 	            IF #Convoyer.HMI.Stamping.Double THEN
 	                #Local.StampingTime := T#1MS;
 	            ELSE
-	                #Local.StampingTime:= #Convoyer.HMI.Stamping.TimerStamping;
+	                #Local.StampingTime := #Convoyer.HMI.Stamping.TimerStamping;
 	            END_IF;
 	            #Local.Execute.Blow := #Convoyer.Sensors.BlowPresence AND #Convoyer.HMI.Blow.Enable;
 	            #Local.Execute.Stamping := NOT #Local.ActionDone.Stamping AND NOT #Convoyer.Sensors.StampingPresence AND #Convoyer.HMI.Stamping.Enable;
-	            #Local.Execute.Camera := ((NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence)OR #Local.ActionToDo.PreCamera[1]) AND #Convoyer.HMI.Camera.Enable;
+	            
+	            //TUTAJ NA DOLE
+	            #Local.Execute.Camera := ((NOT #Local.ActionDone.Camera AND NOT #Convoyer.Sensors.CameraPresence) OR (#Local.ActionToDo.PreCamera[1] AND NOT #Local.ActionDone.Camera)) AND #Convoyer.HMI.Camera.Enable;
 	            #Local.ActionToDo.Stamping := #Local.Execute.Stamping;
 	            #Local.ActionToDo.Camera := #Local.Execute.Camera;
 	            #Local.ActionToDo.PreCamera[0] := #Convoyer.Sensors.BlowPresence; //DODANE ABY ZOBACZYC CZY WYELIMINUJE BLAD BRAKU ZDJEC
@@ -311,7 +314,7 @@ BEGIN
 	                ELSIF #Convoyer.HMI.Stamping.Double AND NOT #Local.DoubleStampingDone THEN
 	                    #Timers.DoubleStamp.IN := TRUE;
 	                    #Local.Execute.Stamping := FALSE;
-	                ELSIF #Convoyer.HMI.Stamping.Double AND  #Local.DoubleStampingDone THEN
+	                ELSIF #Convoyer.HMI.Stamping.Double AND #Local.DoubleStampingDone THEN
 	                    #Local.ActionDone.Stamping := TRUE;
 	                    #Local.ActionToDo.Stamping := FALSE;
 	                    #Local.Execute.Stamping := FALSE;
@@ -319,7 +322,7 @@ BEGIN
 	            END_IF;
 	            
 	            //Oczekiwanie na potwierdzenia blokow  - komentarz -->> opoznienie zalaczenia ruchu stolu dla Oskara
-	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow (* AND #Timers.OskarDelay.Timer.Q *) THEN
+	            IF (#Local.ActionDone.Stamping OR NOT #Local.ActionToDo.Stamping) AND (#Local.ActionDone.Camera OR NOT #Local.ActionToDo.Camera) AND NOT #Local.Execute.Blow (* AND #Timers.OskarDelay.Timer.Q *)THEN
 	                IF NOT #Local.AutoMode THEN
 	                    "changeState"(newState := #S_IDLE,
 	                                  Data := #State);
@@ -344,7 +347,7 @@ BEGIN
 	                #PositioningAxis_Instance.Status.ErrorStatus := #E_MODULES_TIMEOUT;
 	                "changeState"(newState := #S_ERROR,
 	                              Data := #State);
-	            END_IF; 
+	            END_IF;
 	        END_IF;
 	        
 	        //Funkcja wyjściowa 
@@ -370,7 +373,7 @@ BEGIN
 	        
 	        //Funkcja cykliczna
 	        IF NOT #State.inputFlag AND NOT #State.outputFlag THEN
-	            IF (#Timers.GoBackward.Timer.Q AND #Convoyer.Safety.LightCurtain_Stamping) OR NOT #Convoyer.Sensors.JogBack  THEN
+	            IF (#Timers.GoBackward.Timer.Q AND #Convoyer.Safety.LightCurtain_Stamping) OR NOT #Convoyer.Sensors.JogBack THEN
 	                #Convoyer.MotorControl.MC_MOVEJOG.JogBackward := FALSE;
 	                "changeState"(newState := #S_IDLE,
 	                              Data := #State);
@@ -387,40 +390,40 @@ BEGIN
 	END_CASE;
 	
 	REGION FunctionBlocks
-	#Stamping_Instance(Reset:=#Local.Buttons.RESET,
-	                   SecondPush:=#Convoyer.HMI.Stamping.SecondPush,
-	                   TimerSecondPush:=#Convoyer.HMI.Stamping.TimerSecond,
-	                   PreasureSecondPush:=#Convoyer.HMI.Stamping.SecondPreasure,
-	                   TimerStamp:=#Convoyer.HMI.Stamping.TimerStamping,
-	                   TimerMax:=#Convoyer.HMI.Stamping.TimerMaxPreasure,
-	                   MaxPreasure:=#Convoyer.HMI.Stamping.MaxPreasure,
-	                   RegularPreasure:=#Convoyer.HMI.Stamping.RegularPreasure,
-	                   Status=>#Convoyer.StampingStatus,
-	                   Valve:=#Convoyer.Pneumatics.Stamping,
-	                   ITV:=#Convoyer.Pneumatics.IVT,
-	                   Execute:=#Local.Execute.Stamping);
-	#CameraConnectionTCP_Instance(Enable:=#Convoyer.HMI.Camera.Enable,
-	                              Execute := #Local.Execute.Camera,
+	    #Stamping_Instance(Reset := #Local.Buttons.RESET,
+	                       SecondPush := #Convoyer.HMI.Stamping.SecondPush,
+	                       TimerSecondPush := #Convoyer.HMI.Stamping.TimerSecond,
+	                       PreasureSecondPush := #Convoyer.HMI.Stamping.SecondPreasure,
+	                       TimerStamp := #Convoyer.HMI.Stamping.TimerStamping,
+	                       TimerMax := #Convoyer.HMI.Stamping.TimerMaxPreasure,
+	                       MaxPreasure := #Convoyer.HMI.Stamping.MaxPreasure,
+	                       RegularPreasure := #Convoyer.HMI.Stamping.RegularPreasure,
+	                       Status => #Convoyer.StampingStatus,
+	                       Valve := #Convoyer.Pneumatics.Stamping,
+	                       ITV := #Convoyer.Pneumatics.IVT,
+	                       Execute := #Local.Execute.Stamping);
+	    #CameraConnectionTCP_Instance(Enable := #Convoyer.HMI.Camera.Enable,
+	                                  Execute := #Local.Execute.Camera,
 	                                  Reset := #Local.Buttons.RESET,
-	                                  ConnectionTimer:=#Convoyer.HMI.Camera.TimerConnection,
+	                                  ConnectionTimer := #Convoyer.HMI.Camera.TimerConnection,
 	                                  Status => #Convoyer.CameraStatus,
 	                                  Parameters := #Convoyer.CameraConnection);
-	    #PositioningAxis_Instance(HomingSensor:=#Convoyer.Sensors.Homing_I,
-	                              Reset:=#Local.Buttons.RESET,
-	                              InverterOK:=#Convoyer.Safety.InverterOK,
-	                              Axis:=#Axis,
-	                              Status=>#Convoyer.MotorStatus,
-	                              Execute:=#Local.Execute.Convoyer,
-	                              PositioningAxis:=#Convoyer.MotorControl);
-	    #Blow_Instance(Timer:=#Convoyer.HMI.Blow."Time",
-	                   Execute:=#Local.Execute.Blow,
-	                   Coil:=#Convoyer.Pneumatics.Valve.Coils.Out);
+	    #PositioningAxis_Instance(HomingSensor := #Convoyer.Sensors.Homing_I,
+	                              Reset := #Local.Buttons.RESET,
+	                              InverterOK := #Convoyer.Safety.InverterOK,
+	                              Axis := #Axis,
+	                              Status => #Convoyer.MotorStatus,
+	                              Execute := #Local.Execute.Convoyer,
+	                              PositioningAxis := #Convoyer.MotorControl);
+	    #Blow_Instance(Timer := #Convoyer.HMI.Blow."Time",
+	                   Execute := #Local.Execute.Blow,
+	                   Coil := #Convoyer.Pneumatics.Valve.Coils.Out);
 	END_REGION
 	
 	REGION Lights
 	    //RESET BUTTON
 	    #Convoyer.ButtonControl.ButtonBoxLeft.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.StampingStatus.Ready) OR (#Local.backwardProcess AND "Clock_1Hz");
-	    #Convoyer.ButtonControl.ButtonBoxRight.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In  AND #Convoyer.StampingStatus.Ready) OR (#Local.backwardProcess AND "Clock_1Hz");
+	    #Convoyer.ButtonControl.ButtonBoxRight.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.StampingStatus.Ready) OR (#Local.backwardProcess AND "Clock_1Hz");
 	    #Convoyer.ButtonControl.CabinetBox.LightReset := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error OR (NOT #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.StampingStatus.Ready);
 	    //STOP BUTTON
 	    #Convoyer.ButtonControl.ButtonBoxLeft.LightStop := #Convoyer.ConvoyerStatus.Busy AND NOT #Local.AutoMode;
@@ -431,7 +434,7 @@ BEGIN
 	    //ANDON 
 	    #Convoyer.Lights.Red := #Convoyer.ConvoyerStatus.Error OR #Convoyer.CameraStatus.Error OR #Convoyer.StampingStatus.Error OR #Convoyer.MotorStatus.Error;
 	    #Convoyer.Lights.Green := #Convoyer.ConvoyerStatus.Busy OR #Local.AutoMode;
-	    #Convoyer.Lights.Buzzer := #Convoyer.ConvoyerStatus.Ready AND #Local.PermissionToStart AND NOT #Local.AutoMode;
+	    #Convoyer.Lights.Blue := #Convoyer.ConvoyerStatus.Ready AND #Local.PermissionToStart AND NOT #Local.AutoMode;
 	    #Convoyer.Lights.Orange := #Timers.UnloadTimer.Q;
 	END_REGION
 	

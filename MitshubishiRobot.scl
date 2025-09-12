@@ -1,0 +1,121 @@
+﻿FUNCTION_BLOCK "MitshubishiRobot"
+{ S7_Optimized_Access := 'TRUE' }
+VERSION : 0.1
+   VAR_INPUT 
+      Safety : Bool;
+      Reset : Bool;
+      RobotOutputData : "GeneralRobotOutputData";
+   END_VAR
+
+   VAR_OUTPUT 
+      Status : "Status";
+   END_VAR
+
+   VAR_IN_OUT 
+      Enable : Bool;
+      RobotInputData : "GeneralRobotInputData";
+   END_VAR
+
+   VAR 
+      state { S7_SetPoint := 'False'} : "s_changeState";
+      R_TRIG_Safety {InstructionName := 'R_TRIG'; LibVersion := '1.0'} : R_TRIG;
+      R_TRIG_RobotError {InstructionName := 'R_TRIG'; LibVersion := '1.0'} : R_TRIG;
+   END_VAR
+
+   VAR CONSTANT 
+      S_IDLE : Int := 0;
+      S_ERROR : Int := 10;
+      S_BUSY : Int := 20;
+   END_VAR
+
+
+BEGIN
+	REGION R/F_TRIG
+	    #R_TRIG_Safety(CLK:= NOT #Safety);
+	    #R_TRIG_RobotError(CLK:=#RobotOutputData.Error);
+	END_REGION
+	
+	CASE #state.state OF
+	    #S_IDLE:
+	        //Funkcja wejścia
+	        IF #state.inputFlag AND NOT #state.outputFlag THEN
+	            #state.name := 'IDLE';
+	            #Status.Ready := TRUE;
+	            #Status.Busy := FALSE;
+	            #Status.Error := FALSE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #state.inputFlag AND NOT #state.outputFlag THEN
+	            IF #Enable THEN
+	                #RobotInputData.Start := TRUE;
+	            END_IF;
+	            IF #RobotOutputData.DuringExecute AND #RobotOutputData.SequenceStarted THEN
+	                #RobotInputData.Start := FALSE;
+	                "changeState"(newState:=#S_BUSY,
+	                              Data:=#state);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #state.outputFlag THEN
+	            ;
+	        END_IF;
+	        
+	    #S_ERROR:
+	        //Funkcja wejścia
+	        IF #state.inputFlag AND NOT #state.outputFlag THEN
+	            #state.name := 'ERROR';
+	            #Status.Ready := FALSE;
+	            #Status.Busy := FALSE;
+	            #Status.Error := TRUE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #state.inputFlag AND NOT #state.outputFlag THEN
+	            IF #Safety AND #Reset AND NOT #RobotOutputData.Error THEN
+	                #RobotInputData.Auto := TRUE;
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #state.outputFlag THEN
+	            ;
+	        END_IF;
+	        
+	    #S_BUSY:
+	        //Funkcja wejścia
+	        IF #state.inputFlag AND NOT #state.outputFlag THEN
+	            #state.name := 'DURING_PROGRAM';
+	            #Status.Ready := FALSE;
+	            #Status.Busy := TRUE;
+	            #Status.Error := FALSE;
+	        END_IF;
+	        
+	        //Funkcja cykliczna
+	        IF NOT #state.inputFlag AND NOT #state.outputFlag THEN
+	            IF NOT #RobotOutputData.SequenceStarted THEN
+	                "changeState"(newState := #S_IDLE,
+	                              Data := #state);
+	            END_IF;
+	        END_IF;
+	        
+	        //Funkcja wyjściowa 
+	        IF #state.outputFlag THEN
+	            ;
+	        END_IF;
+	END_CASE;
+	
+	IF NOT #R_TRIG_Safety.Q OR #R_TRIG_RobotError.Q THEN
+	    "changeState"(newState := #S_ERROR,
+	                  Data := #state);
+	END_IF;
+	
+	REGION Change state
+	    IF #state.inputFlag AND NOT #state.outputFlag THEN
+	        #state.inputFlag := FALSE;
+	    END_IF;
+	    #state.outputFlag := FALSE;
+	END_REGION
+END_FUNCTION_BLOCK
+

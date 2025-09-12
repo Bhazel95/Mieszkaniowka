@@ -954,7 +954,7 @@
   <Token Text=":=" UId="785" />
   <Blank UId="786" />
   <Access Scope="GlobalConstant" UId="787">
-    <Constant Name="G120_CU250S_2_PN_VECTOR~PROFINET_interface~IODevice" UId="788" />
+    <Constant Name="G120_CU250S_2_PN_VECTOR_7A~PROFINET_interface~IODevice" UId="788" />
   </Access>
   <Token Text=";" UId="791" />
   <NewLine UId="792" />
@@ -977,6 +977,42 @@
   </Access>
   <Token Text=";" UId="807" />
   <NewLine Num="2" UId="808" />
+  <Access Scope="LocalVariable" UId="809">
+    <Symbol UId="810">
+      <Component Name="Diagnostic" UId="811" />
+      <Token Text="." UId="812" />
+      <Component Name="SinamicG120_1" UId="813" />
+      <Token Text="." UId="814" />
+      <Component Name="LADDR" UId="815" />
+    </Symbol>
+  </Access>
+  <Blank UId="816" />
+  <Token Text=":=" UId="817" />
+  <Blank UId="818" />
+  <Access Scope="GlobalConstant" UId="819">
+    <Constant Name="G120_CU250S_2_PN_VECTOR_7B~PROFINET_interface~IODevice" UId="820" />
+  </Access>
+  <Token Text=";" UId="823" />
+  <NewLine UId="824" />
+  <Access Scope="LocalVariable" UId="825">
+    <Symbol UId="826">
+      <Component Name="Diagnostic" UId="827" />
+      <Token Text="." UId="828" />
+      <Component Name="SinamicG120_1" UId="829" />
+      <Token Text="." UId="830" />
+      <Component Name="Mode" UId="831" />
+    </Symbol>
+  </Access>
+  <Blank UId="832" />
+  <Token Text=":=" UId="833" />
+  <Blank UId="834" />
+  <Access Scope="LiteralConstant" UId="835">
+    <Constant UId="836">
+      <ConstantValue UId="838">1</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="839" />
+  <NewLine UId="840" />
 </StructuredText></NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>
@@ -3153,6 +3189,210 @@
     <Access Scope="LocalVariable" UId="21">
       <Symbol>
         <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_3" />
+        <Component Name="Mode" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="22">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_3" />
+        <Component Name="LADDR" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="23">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_3" />
+        <Component Name="diagDIS" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="24">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_3" />
+        <Component Name="RetVal" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="25">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_3" />
+        <Component Name="cntDiag" />
+      </Symbol>
+    </Access>
+    <Part Name="GET_DIAG" Version="1.0" UId="26" />
+  </Parts>
+  <Wires>
+    <Wire UId="28">
+      <Powerrail />
+      <NameCon UId="26" Name="en" />
+    </Wire>
+    <Wire UId="29">
+      <IdentCon UId="21" />
+      <NameCon UId="26" Name="MODE" />
+    </Wire>
+    <Wire UId="30">
+      <IdentCon UId="22" />
+      <NameCon UId="26" Name="LADDR" />
+    </Wire>
+    <Wire UId="31">
+      <IdentCon UId="23" />
+      <NameCon UId="26" Name="DIAG" />
+    </Wire>
+    <Wire UId="32">
+      <OpenCon UId="27" />
+      <NameCon UId="26" Name="DETAIL" />
+    </Wire>
+    <Wire UId="33">
+      <NameCon UId="26" Name="RET_VAL" />
+      <IdentCon UId="24" />
+    </Wire>
+    <Wire UId="34">
+      <NameCon UId="26" Name="CNT_DIAG" />
+      <IdentCon UId="25" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="77" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="78" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="79" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7A" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="7B" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+  <Parts>
+    <Access Scope="LocalVariable" UId="21">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_4" />
+        <Component Name="Mode" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="22">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_4" />
+        <Component Name="LADDR" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="23">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_4" />
+        <Component Name="diagDIS" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="24">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_4" />
+        <Component Name="RetVal" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="25">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="ET_200SP" />
+        <Component Name="ET_200AL_4" />
+        <Component Name="cntDiag" />
+      </Symbol>
+    </Access>
+    <Part Name="GET_DIAG" Version="1.0" UId="26" />
+  </Parts>
+  <Wires>
+    <Wire UId="28">
+      <Powerrail />
+      <NameCon UId="26" Name="en" />
+    </Wire>
+    <Wire UId="29">
+      <IdentCon UId="21" />
+      <NameCon UId="26" Name="MODE" />
+    </Wire>
+    <Wire UId="30">
+      <IdentCon UId="22" />
+      <NameCon UId="26" Name="LADDR" />
+    </Wire>
+    <Wire UId="31">
+      <IdentCon UId="23" />
+      <NameCon UId="26" Name="DIAG" />
+    </Wire>
+    <Wire UId="32">
+      <OpenCon UId="27" />
+      <NameCon UId="26" Name="DETAIL" />
+    </Wire>
+    <Wire UId="33">
+      <NameCon UId="26" Name="RET_VAL" />
+      <IdentCon UId="24" />
+    </Wire>
+    <Wire UId="34">
+      <NameCon UId="26" Name="CNT_DIAG" />
+      <IdentCon UId="25" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="7C" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="7D" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="7E" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="7F" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="80" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+  <Parts>
+    <Access Scope="LocalVariable" UId="21">
+      <Symbol>
+        <Component Name="Diagnostic" />
         <Component Name="SinamicG120_1" />
         <Component Name="Mode" />
       </Symbol>
@@ -3221,9 +3461,9 @@
           <ProgrammingLanguage>LAD</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="77" CompositionName="Comment">
+          <MultilingualText ID="81" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="78" CompositionName="Items">
+              <MultilingualTextItem ID="82" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3231,9 +3471,9 @@
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="79" CompositionName="Title">
+          <MultilingualText ID="83" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="7A" CompositionName="Items">
+              <MultilingualTextItem ID="84" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3243,7 +3483,104 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <SW.Blocks.CompileUnit ID="7B" CompositionName="CompileUnits">
+      <SW.Blocks.CompileUnit ID="85" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+  <Parts>
+    <Access Scope="LocalVariable" UId="21">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="SinamicG120_2" />
+        <Component Name="Mode" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="22">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="SinamicG120_2" />
+        <Component Name="LADDR" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="23">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="SinamicG120_2" />
+        <Component Name="diagDIS" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="24">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="SinamicG120_2" />
+        <Component Name="RetVal" />
+      </Symbol>
+    </Access>
+    <Access Scope="LocalVariable" UId="25">
+      <Symbol>
+        <Component Name="Diagnostic" />
+        <Component Name="SinamicG120_2" />
+        <Component Name="cntDiag" />
+      </Symbol>
+    </Access>
+    <Part Name="GET_DIAG" Version="1.0" UId="26" />
+  </Parts>
+  <Wires>
+    <Wire UId="28">
+      <Powerrail />
+      <NameCon UId="26" Name="en" />
+    </Wire>
+    <Wire UId="29">
+      <IdentCon UId="21" />
+      <NameCon UId="26" Name="MODE" />
+    </Wire>
+    <Wire UId="30">
+      <IdentCon UId="22" />
+      <NameCon UId="26" Name="LADDR" />
+    </Wire>
+    <Wire UId="31">
+      <IdentCon UId="23" />
+      <NameCon UId="26" Name="DIAG" />
+    </Wire>
+    <Wire UId="32">
+      <OpenCon UId="27" />
+      <NameCon UId="26" Name="DETAIL" />
+    </Wire>
+    <Wire UId="33">
+      <NameCon UId="26" Name="RET_VAL" />
+      <IdentCon UId="24" />
+    </Wire>
+    <Wire UId="34">
+      <NameCon UId="26" Name="CNT_DIAG" />
+      <IdentCon UId="25" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
+        <ObjectList>
+          <MultilingualText ID="86" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="87" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="88" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="89" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <SW.Blocks.CompileUnit ID="8A" CompositionName="CompileUnits">
         <AttributeList>
           <NetworkSource><StructuredText xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/StructuredText/v4">
   <Access Scope="LocalVariable" UId="21">
@@ -3764,30 +4101,100 @@
     <Symbol UId="471">
       <Component Name="Diagnostic" UId="472" />
       <Token Text="." UId="473" />
-      <Component Name="SinamicG120_1" UId="474" />
+      <Component Name="ET_200SP" UId="474" />
       <Token Text="." UId="475" />
-      <Component Name="diagDIS" UId="476" />
+      <Component Name="ET_200AL_3" UId="476" />
       <Token Text="." UId="477" />
-      <Component Name="OwnState" UId="478" />
+      <Component Name="diagDIS" UId="478" />
+      <Token Text="." UId="479" />
+      <Component Name="OwnState" UId="480" />
     </Symbol>
   </Access>
-  <Blank UId="479" />
-  <Token Text="=" UId="480" />
   <Blank UId="481" />
-  <Access Scope="LiteralConstant" UId="482">
-    <Constant UId="483">
-      <ConstantValue UId="485">0</ConstantValue>
+  <Token Text="=" UId="482" />
+  <Blank UId="483" />
+  <Access Scope="LiteralConstant" UId="484">
+    <Constant UId="485">
+      <ConstantValue UId="487">0</ConstantValue>
     </Constant>
   </Access>
-  <Token Text=";" UId="486" />
-  <NewLine UId="487" />
+  <Blank UId="488" />
+  <Token Text="AND" UId="489" />
+  <Blank UId="490" />
+  <Access Scope="LocalVariable" UId="491">
+    <Symbol UId="492">
+      <Component Name="Diagnostic" UId="493" />
+      <Token Text="." UId="494" />
+      <Component Name="ET_200SP" UId="495" />
+      <Token Text="." UId="496" />
+      <Component Name="ET_200AL_4" UId="497" />
+      <Token Text="." UId="498" />
+      <Component Name="diagDIS" UId="499" />
+      <Token Text="." UId="500" />
+      <Component Name="OwnState" UId="501" />
+    </Symbol>
+  </Access>
+  <Blank UId="502" />
+  <Token Text="=" UId="503" />
+  <Blank UId="504" />
+  <Access Scope="LiteralConstant" UId="505">
+    <Constant UId="506">
+      <ConstantValue UId="508">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Blank UId="509" />
+  <Token Text="AND" UId="510" />
+  <NewLine UId="511" />
+  <Access Scope="LocalVariable" UId="512">
+    <Symbol UId="513">
+      <Component Name="Diagnostic" UId="514" />
+      <Token Text="." UId="515" />
+      <Component Name="SinamicG120_1" UId="516" />
+      <Token Text="." UId="517" />
+      <Component Name="diagDIS" UId="518" />
+      <Token Text="." UId="519" />
+      <Component Name="OwnState" UId="520" />
+    </Symbol>
+  </Access>
+  <Blank UId="521" />
+  <Token Text="=" UId="522" />
+  <Blank UId="523" />
+  <Access Scope="LiteralConstant" UId="524">
+    <Constant UId="525">
+      <ConstantValue UId="527">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Blank UId="528" />
+  <Token Text="AND" UId="529" />
+  <Blank UId="530" />
+  <Access Scope="LocalVariable" UId="531">
+    <Symbol UId="532">
+      <Component Name="Diagnostic" UId="533" />
+      <Token Text="." UId="534" />
+      <Component Name="SinamicG120_2" UId="535" />
+      <Token Text="." UId="536" />
+      <Component Name="diagDIS" UId="537" />
+      <Token Text="." UId="538" />
+      <Component Name="OwnState" UId="539" />
+    </Symbol>
+  </Access>
+  <Blank UId="540" />
+  <Token Text="=" UId="541" />
+  <Blank UId="542" />
+  <Access Scope="LiteralConstant" UId="543">
+    <Constant UId="544">
+      <ConstantValue UId="546">0</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="547" />
+  <NewLine UId="548" />
 </StructuredText></NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>
         <ObjectList>
-          <MultilingualText ID="7C" CompositionName="Comment">
+          <MultilingualText ID="8B" CompositionName="Comment">
             <ObjectList>
-              <MultilingualTextItem ID="7D" CompositionName="Items">
+              <MultilingualTextItem ID="8C" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text>Diagnostyka dla szafy 1</Text>
@@ -3795,9 +4202,9 @@
               </MultilingualTextItem>
             </ObjectList>
           </MultilingualText>
-          <MultilingualText ID="7E" CompositionName="Title">
+          <MultilingualText ID="8D" CompositionName="Title">
             <ObjectList>
-              <MultilingualTextItem ID="7F" CompositionName="Items">
+              <MultilingualTextItem ID="8E" CompositionName="Items">
                 <AttributeList>
                   <Culture>en-US</Culture>
                   <Text />
@@ -3807,9 +4214,9 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <MultilingualText ID="80" CompositionName="Title">
+      <MultilingualText ID="8F" CompositionName="Title">
         <ObjectList>
-          <MultilingualTextItem ID="81" CompositionName="Items">
+          <MultilingualTextItem ID="90" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
               <Text />
