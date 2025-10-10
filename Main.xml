@@ -44,9 +44,9 @@
   <Parts>
     <Access Scope="GlobalVariable" UId="21">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Diagnostic_7" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
       </Symbol>
     </Access>
     <Call UId="22">
@@ -137,72 +137,72 @@
   <Parts>
     <Access Scope="GlobalVariable" UId="21">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7A" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
         <Component Name="MotorStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="22">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7A" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
         <Component Name="CameraStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="23">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7A" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
         <Component Name="StampingStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="24">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7B" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_B" />
         <Component Name="MotorStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="25">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7B" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_B" />
         <Component Name="CameraStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="26">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7B" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_B" />
         <Component Name="StampingStatus" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="27">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Diagnostic_7" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="28">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7A" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
         <Component Name="Alarms" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="29">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7B" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_B" />
         <Component Name="Alarms" />
       </Symbol>
     </Access>
@@ -333,7 +333,7 @@
           <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
   <Parts>
     <Call UId="21">
-      <CallInfo Name="FC_09_HMI" BlockType="FC" />
+      <CallInfo Name="FC_008_OPC" BlockType="FC" />
     </Call>
   </Parts>
   <Wires>
@@ -373,7 +373,7 @@
           <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
   <Parts>
     <Call UId="21">
-      <CallInfo Name="FC_010_Outputs" BlockType="FC" />
+      <CallInfo Name="FC_09_HMI" BlockType="FC" />
     </Call>
   </Parts>
   <Wires>
@@ -408,9 +408,49 @@
           </MultilingualText>
         </ObjectList>
       </SW.Blocks.CompileUnit>
-      <MultilingualText ID="21" CompositionName="Title">
+      <SW.Blocks.CompileUnit ID="21" CompositionName="CompileUnits">
+        <AttributeList>
+          <NetworkSource><FlgNet xmlns="http://www.siemens.com/automation/Openness/SW/NetworkSource/FlgNet/v5">
+  <Parts>
+    <Call UId="21">
+      <CallInfo Name="FC_010_Outputs" BlockType="FC" />
+    </Call>
+  </Parts>
+  <Wires>
+    <Wire UId="22">
+      <Powerrail />
+      <NameCon UId="21" Name="en" />
+    </Wire>
+  </Wires>
+</FlgNet></NetworkSource>
+          <ProgrammingLanguage>LAD</ProgrammingLanguage>
+        </AttributeList>
         <ObjectList>
-          <MultilingualTextItem ID="22" CompositionName="Items">
+          <MultilingualText ID="22" CompositionName="Comment">
+            <ObjectList>
+              <MultilingualTextItem ID="23" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+          <MultilingualText ID="24" CompositionName="Title">
+            <ObjectList>
+              <MultilingualTextItem ID="25" CompositionName="Items">
+                <AttributeList>
+                  <Culture>en-US</Culture>
+                  <Text />
+                </AttributeList>
+              </MultilingualTextItem>
+            </ObjectList>
+          </MultilingualText>
+        </ObjectList>
+      </SW.Blocks.CompileUnit>
+      <MultilingualText ID="26" CompositionName="Title">
+        <ObjectList>
+          <MultilingualTextItem ID="27" CompositionName="Items">
             <AttributeList>
               <Culture>en-US</Culture>
               <Text>"Main Program Sweep (Cycle)"</Text>

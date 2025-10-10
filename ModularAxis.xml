@@ -4117,13 +4117,13 @@
   <Blank UId="2466" />
   <Access Scope="GlobalVariable" UId="2467">
     <Symbol UId="2468">
-      <Component Name="DEV" UId="2469">
+      <Component Name="DEV_7" UId="2469">
         <BooleanAttribute Name="HasQuotes" UId="2470">true</BooleanAttribute>
       </Component>
       <Token Text="." UId="2471" />
-      <Component Name="Convoyer_7" UId="2472" />
+      <Component Name="Convoyer" UId="2472" />
       <Token Text="." UId="2473" />
-      <Component Name="Modular_7A" UId="2474" />
+      <Component Name="Modular_A" UId="2474" />
       <Token Text="." UId="2475" />
       <Component Name="Sensors" UId="2476" />
       <Token Text="." UId="2477" />

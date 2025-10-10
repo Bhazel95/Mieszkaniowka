@@ -132,7 +132,7 @@ BEGIN
 	END_REGION
 	
 	//Permission to start
-	#Local.PermissionToStart := #Diagnostic.DiagnosticOK AND #Convoyer.Safety.SafetyOK
+	#Local.PermissionToStart := #Diagnostic.DiagnosticOK AND NOT #Convoyer.Alarms.Fault24V AND #Convoyer.Safety.SafetyOK
 	AND NOT #Convoyer.Alarms.Present AND #Convoyer.Pneumatics.Stamping.Sensors.In
 	AND NOT #Convoyer.Pneumatics.Stamping.Sensors.Out AND (#Convoyer.CameraStatus.Ready OR NOT #Convoyer.HMI.Camera.Enable)
 	AND #Convoyer.MotorStatus.Ready AND #Convoyer.Sensors.Stamp_Check_1 AND #Convoyer.Sensors.UnloadingPresence AND #Convoyer.Sensors.Span;

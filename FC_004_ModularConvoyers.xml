@@ -106,23 +106,23 @@
     </Access>
     <Access Scope="GlobalVariable" UId="22">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7A" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="23">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Diagnostic_7" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="24">
       <Symbol>
-        <Component Name="DEV" />
+        <Component Name="DEV_7" />
         <Component Name="Retains" />
-        <Component Name="Convoyer7A" />
+        <Component Name="ConvoyerA" />
         <Component Name="ProducedUnits" />
       </Symbol>
     </Access>
@@ -133,23 +133,23 @@
     </Access>
     <Access Scope="GlobalVariable" UId="26">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Modular_7B" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_B" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="27">
       <Symbol>
-        <Component Name="DEV" />
-        <Component Name="Convoyer_7" />
-        <Component Name="Diagnostic_7" />
+        <Component Name="DEV_7" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
       </Symbol>
     </Access>
     <Access Scope="GlobalVariable" UId="28">
       <Symbol>
-        <Component Name="DEV" />
+        <Component Name="DEV_7" />
         <Component Name="Retains" />
-        <Component Name="Convoyer7B" />
+        <Component Name="ConvoyerB" />
         <Component Name="ProducedUnits" />
       </Symbol>
     </Access>

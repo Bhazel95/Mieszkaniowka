@@ -32,22 +32,22 @@ BEGIN
 	    #Alarms_7A.ESTOP.Main :=NOT "7_ESTOP";
 	    #Alarms_7A.Fault24V := NOT "7_24V_OK";
 	    REGION Convoyer 7A   
-	        #Alarms_7A.ResetReq := "DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET OR NOT "7A_Valve_Safety_1";
+	        #Alarms_7A.ResetReq := "DEV_7".Convoyer.Modular_A.Safety.REQ_RESET OR NOT "7A_Valve_Safety_1";
 	        
 	        REGION ESTOP&DOOR
 	            #Alarms_7A.ESTOP.Left := NOT "7A_ESTOP_1";
 	            #Alarms_7A.ESTOP.Right := NOT "7A_ESTOP_2";
-	            #Alarms_7A.Door.Front := NOT "7A_DOOR_1" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.FrontDoor;
-	            #Alarms_7A.Door.Back := NOT "7A_DOOR_2" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.BackDoor;
-	            #Alarms_7A.Door.Unload := NOT "7A_DOOR_3" AND NOT "DEV".Convoyer_7.Modular_7A.HMI.DoorDisable.UnloadDoor;
+	            #Alarms_7A.Door.Front := NOT "7A_DOOR_1" AND NOT "DEV_7".Convoyer.Modular_A.HMI.DoorDisable.FrontDoor;
+	            #Alarms_7A.Door.Back := NOT "7A_DOOR_2" AND NOT "DEV_7".Convoyer.Modular_A.HMI.DoorDisable.BackDoor;
+	            #Alarms_7A.Door.Unload := NOT "7A_DOOR_3" AND NOT "DEV_7".Convoyer.Modular_A.HMI.DoorDisable.UnloadDoor;
 	        END_REGION
 	        REGION Light curtain
-	            #Alarms_7A.LightCurtain.Front := (("DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.In OR "DEV".Convoyer_7.Modular_7A.Pneumatics.Stamping.Coils.Out) AND NOT "7A_LIGHT_CURTAIN_1") OR (NOT "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK AND NOT "7A_LIGHT_CURTAIN_1");
+	            #Alarms_7A.LightCurtain.Front := (("DEV_7".Convoyer.Modular_A.Pneumatics.Stamping.Coils.In OR "DEV_7".Convoyer.Modular_A.Pneumatics.Stamping.Coils.Out) AND NOT "7A_LIGHT_CURTAIN_1") OR (NOT "DEV_7".Convoyer.Modular_A.Safety.SafetyOK AND NOT "7A_LIGHT_CURTAIN_1");
 	        END_REGION
 	        
 	        REGION INVERTER
-	            IF NOT "DEV".Convoyer_7.Modular_7A.Safety.REQ_RESET AND "DEV".Convoyer_7.Modular_7A.Safety.SafetyOK THEN
-	                #Alarms_7A.Inverter.GlobalError := NOT "DEV".Convoyer_7.Modular_7A.Safety.InverterOK;
+	            IF NOT "DEV_7".Convoyer.Modular_A.Safety.REQ_RESET AND "DEV_7".Convoyer.Modular_A.Safety.SafetyOK THEN
+	                #Alarms_7A.Inverter.GlobalError := NOT "DEV_7".Convoyer.Modular_A.Safety.InverterOK;
 	                #Alarms_7A.Inverter.POWER := #StatusInverter_7A.Error AND #StatusInverter_7A.ErrorStatus = 16#8002;
 	                #Alarms_7A.Inverter.HALT := #StatusInverter_7A.Error AND #StatusInverter_7A.ErrorStatus = 16#8001;
 	                #Alarms_7A.Inverter.RESET := #StatusInverter_7A.Error AND #StatusInverter_7A.ErrorStatus = 16#8005;
@@ -87,21 +87,21 @@ BEGIN
 	    END_REGION
 	    
 	    REGION Convoyer 7B 
-	        #Alarms_7B.ResetReq := "DEV".Convoyer_7.Modular_7B.Safety.REQ_RESET OR NOT "7B_Valve_Safety_1";
+	        #Alarms_7B.ResetReq := "DEV_7".Convoyer.Modular_B.Safety.REQ_RESET OR NOT "7B_Valve_Safety_1";
 	        REGION ESTOP&DOOR
 	            #Alarms_7B.ESTOP.Left := NOT "7B_ESTOP_1";
 	            #Alarms_7B.ESTOP.Right := NOT "7B_ESTOP_2";
-	            #Alarms_7B.Door.Front := NOT "7B_DOOR_1" AND NOT "DEV".Convoyer_7.Modular_7B.HMI.DoorDisable.FrontDoor;
-	            #Alarms_7B.Door.Back := NOT "7B_DOOR_2" AND NOT "DEV".Convoyer_7.Modular_7B.HMI.DoorDisable.BackDoor;
-	            #Alarms_7B.Door.Unload := NOT "7B_DOOR_3" AND NOT "DEV".Convoyer_7.Modular_7B.HMI.DoorDisable.UnloadDoor;
+	            #Alarms_7B.Door.Front := NOT "7B_DOOR_1" AND NOT "DEV_7".Convoyer.Modular_B.HMI.DoorDisable.FrontDoor;
+	            #Alarms_7B.Door.Back := NOT "7B_DOOR_2" AND NOT "DEV_7".Convoyer.Modular_B.HMI.DoorDisable.BackDoor;
+	            #Alarms_7B.Door.Unload := NOT "7B_DOOR_3" AND NOT "DEV_7".Convoyer.Modular_B.HMI.DoorDisable.UnloadDoor;
 	        END_REGION
 	        REGION Light curtain
-	            #Alarms_7B.LightCurtain.Front := (("DEV".Convoyer_7.Modular_7B.Pneumatics.Stamping.Coils.In OR "DEV".Convoyer_7.Modular_7B.Pneumatics.Stamping.Coils.Out) AND NOT "7B_LIGHT_CURTAIN_1") OR (NOT "DEV".Convoyer_7.Modular_7B.Safety.SafetyOK AND NOT "7B_LIGHT_CURTAIN_1");
+	            #Alarms_7B.LightCurtain.Front := (("DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.In OR "DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.Out) AND NOT "7B_LIGHT_CURTAIN_1") OR (NOT "DEV_7".Convoyer.Modular_B.Safety.SafetyOK AND NOT "7B_LIGHT_CURTAIN_1");
 	        END_REGION
 	        
 	        REGION INVERTER
-	            IF NOT "DEV".Convoyer_7.Modular_7B.Safety.REQ_RESET AND "DEV".Convoyer_7.Modular_7B.Safety.SafetyOK THEN
-	                #Alarms_7B.Inverter.GlobalError := NOT "DEV".Convoyer_7.Modular_7B.Safety.InverterOK;
+	            IF NOT "DEV_7".Convoyer.Modular_B.Safety.REQ_RESET AND "DEV_7".Convoyer.Modular_B.Safety.SafetyOK THEN
+	                #Alarms_7B.Inverter.GlobalError := NOT "DEV_7".Convoyer.Modular_B.Safety.InverterOK;
 	                #Alarms_7B.Inverter.POWER := #StatusInverter_7B.Error AND #StatusInverter_7B.ErrorStatus = 16#8002;
 	                #Alarms_7B.Inverter.HALT := #StatusInverter_7B.Error AND #StatusInverter_7B.ErrorStatus = 16#8001;
 	                #Alarms_7B.Inverter.RESET := #StatusInverter_7B.Error AND #StatusInverter_7B.ErrorStatus = 16#8005;
@@ -175,9 +175,9 @@ BEGIN
 	    END_REGION
 	
 	IF #Alarms_7A.Present THEN
-	    "DEV".Convoyer_7.Modular_7A.HMI.Page.Number := 1;
+	    "DEV_7".Convoyer.Modular_A.HMI.Page.Number := 1;
 	ELSE
-	    "DEV".Convoyer_7.Modular_7A.HMI.Page.Number := 0;
+	    "DEV_7".Convoyer.Modular_A.HMI.Page.Number := 0;
 	END_IF;
 	
 END_FUNCTION

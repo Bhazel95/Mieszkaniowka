@@ -30,6 +30,16 @@ VERSION : 0.1
 
 
 BEGIN
+	//************************************************************
+	//===Author: Mateusz Połojko
+	//-----Linkedin: https://pl.linkedin.com/in/mateusz-po%C5%82ojko-52a3541b1
+	//-----Github: https://github.com/Bhazel95
+	//===Description:
+	//-----Function block for sending + rvc commands/status of Mitsubishi robot
+	//===Customer:
+	//-----Apator Powogaz S.A.
+	//************************************************************
+	
 	REGION R/F_TRIG
 	    #R_TRIG_Safety(CLK:= NOT #Safety);
 	    #R_TRIG_RobotError(CLK:=#RobotOutputData.Error);
