@@ -165,12 +165,12 @@
       </CallInfo>
     </Call>
     <Call UId="31">
-      <CallInfo Name="ModularConvoyer" BlockType="FB">
+      <CallInfo Name="ModularConvoyer_Speed" BlockType="FB">
         <Instance Scope="GlobalVariable" UId="32">
           <Component Name="ModularConvoyer_7B_DB" />
         </Instance>
-        <Parameter Name="Axis" Section="Input" Type="TO_PositioningAxis" />
-        <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_10&quot;" />
+        <Parameter Name="Axis" Section="Input" Type="TO_SpeedAxis" />
+        <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_SPEED&quot;" />
         <Parameter Name="Diagnostic" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
         <Parameter Name="ProducedUnits" Section="InOut" Type="DInt" />
       </CallInfo>

@@ -68,11 +68,11 @@ BEGIN
 	        "7B_LIGHTS_ORANGE_1" := "DEV_7".Convoyer.Modular_B.Lights.Orange;
 	    END_REGION
 	    REGION Pneumatics
-	        "7B_VALVE_IN_1" := "DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.In;
-	        "7B_VALVE_OUT_1" := "DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.Out;
+	        "7B_VALVE_IN_2" := "DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.In;
+	        "7B_VALVE_OUT_2" := "DEV_7".Convoyer.Modular_B.Pneumatics.Stamping.Coils.Out;
 	        
-	        "7B_VALVE_IN_2" := "DEV_7".Convoyer.Modular_B.Pneumatics.Valve.Coils.In;
-	        "7B_VALVE_OUT_2" := "DEV_7".Convoyer.Modular_B.Pneumatics.Valve.Coils.Out;
+	        "7B_VALVE_IN_1" := "DEV_7".Convoyer.Modular_B.Pneumatics.Valve.Coils.In;
+	        "7B_VALVE_OUT_1" := "DEV_7".Convoyer.Modular_B.Pneumatics.Valve.Coils.Out;
 	        
 	        IF "DEV_7".Convoyer.Modular_B.Safety.SafetyOK AND "DEV_7".Convoyer.Modular_B.Sensors.Span THEN
 	            "DEV_7".Convoyer.Modular_B.Pneumatics.IVT.Sensor.Scaled.SetNorm := NORM_X(MIN := 0, VALUE := "DEV_7".Convoyer.Modular_B.Pneumatics.IVT.Sensor.Analog.SetValue, MAX := 7);

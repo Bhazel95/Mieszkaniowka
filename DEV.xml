@@ -134,7 +134,7 @@
               </Section>
             </Sections>
           </Member>
-          <Member Name="Modular_B" Datatype="&quot;Modular_10&quot;">
+          <Member Name="Modular_B" Datatype="&quot;Modular_SPEED&quot;">
             <Sections>
               <Section Name="None">
                 <Member Name="CameraConnection" Datatype="TCON_IP_v4" Version="1.0">
@@ -144,7 +144,7 @@
                         <StartValue>64</StartValue>
                       </Member>
                       <Member Name="ID" Datatype="CONN_OUC">
-                        <StartValue>16#2</StartValue>
+                        <StartValue>2</StartValue>
                       </Member>
                       <Member Name="ConnectionType" Datatype="Byte">
                         <StartValue>16#0B</StartValue>
@@ -176,10 +176,65 @@
                         <StartValue>0</StartValue>
                       </Member>
                       <Member Name="LocalPort" Datatype="UInt">
-                        <StartValue>2137</StartValue>
+                        <StartValue>2138</StartValue>
                       </Member>
                     </Section>
                   </Sections>
+                </Member>
+                <Member Name="Pneumatics" Datatype="&quot;Pneumatics_10&quot;">
+                  <Sections>
+                    <Section Name="None">
+                      <Member Name="Stamping" Datatype="&quot;Valve5_3&quot;">
+                        <Sections>
+                          <Section Name="None">
+                            <Member Name="Timers" Datatype="Struct">
+                              <Member Name="In" Datatype="Time">
+                                <StartValue>T#5000ms</StartValue>
+                              </Member>
+                              <Member Name="Out" Datatype="Time">
+                                <StartValue>T#5000ms</StartValue>
+                              </Member>
+                            </Member>
+                          </Section>
+                        </Sections>
+                      </Member>
+                    </Section>
+                  </Sections>
+                </Member>
+                <Member Name="HMI" Datatype="Struct">
+                  <Member Name="Camera" Datatype="Struct">
+                    <Member Name="Enable" Datatype="Bool">
+                      <StartValue>TRUE</StartValue>
+                    </Member>
+                    <Member Name="TimerConnection" Datatype="Time">
+                      <StartValue>T#100000ms</StartValue>
+                    </Member>
+                  </Member>
+                  <Member Name="Stamping" Datatype="Struct">
+                    <Member Name="Enable" Datatype="Bool">
+                      <StartValue>TRUE</StartValue>
+                    </Member>
+                    <Member Name="RegularPreasure" Datatype="Real">
+                      <StartValue>3.0</StartValue>
+                    </Member>
+                    <Member Name="MaxPreasure" Datatype="Real">
+                      <StartValue>6.0</StartValue>
+                    </Member>
+                    <Member Name="TimerMaxPreasure" Datatype="Time">
+                      <StartValue>T#1500ms</StartValue>
+                    </Member>
+                    <Member Name="TimerStamping" Datatype="Time">
+                      <StartValue>T#1500ms</StartValue>
+                    </Member>
+                  </Member>
+                  <Member Name="Blow" Datatype="Struct">
+                    <Member Name="Enable" Datatype="Bool">
+                      <StartValue>true</StartValue>
+                    </Member>
+                    <Member Name="Time" Datatype="Time">
+                      <StartValue>T#1000ms</StartValue>
+                    </Member>
+                  </Member>
                 </Member>
               </Section>
             </Sections>

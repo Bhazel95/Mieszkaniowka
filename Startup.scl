@@ -9,9 +9,9 @@ BEGIN
 	    "DEV_7".Convoyer.Modular_A.MotorControl.MC_MOVEJOG.Acceleration := 60;
 	    "DEV_7".Convoyer.Modular_A.MotorControl.MC_MOVEJOG.Deceleration := 120;
 	    
-	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Velocity := 50;
-	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Acceleration := 60;
-	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Deceleration := 120;
+	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Velocity := 25;
+	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Acceleration := 30;
+	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Deceleration := 60;
 	END_REGION
 	REGION SKIP FIRST SOCKET
 	    "ModularConvoyer_7A_DB".Local.isMoved := TRUE;

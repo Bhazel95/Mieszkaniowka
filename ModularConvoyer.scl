@@ -133,7 +133,7 @@ BEGIN
 	
 	//Permission to start
 	#Local.PermissionToStart := #Diagnostic.DiagnosticOK AND NOT #Convoyer.Alarms.Fault24V AND #Convoyer.Safety.SafetyOK
-	AND NOT #Convoyer.Alarms.Present AND #Convoyer.Pneumatics.Stamping.Sensors.In
+	AND NOT #Convoyer.Alarms.Present AND #Convoyer.Pneumatics.Stamping.Sensors.In AND #Convoyer.Safety.LightCurtain_Stamping
 	AND NOT #Convoyer.Pneumatics.Stamping.Sensors.Out AND (#Convoyer.CameraStatus.Ready OR NOT #Convoyer.HMI.Camera.Enable)
 	AND #Convoyer.MotorStatus.Ready AND #Convoyer.Sensors.Stamp_Check_1 AND #Convoyer.Sensors.UnloadingPresence AND #Convoyer.Sensors.Span;
 	
@@ -445,6 +445,10 @@ BEGIN
 	
 	//Error trig
 	IF #R_TRIG_CriticalError.Q THEN
+	    IF NOT #PositioningAxis_Instance.Status.Done THEN
+	        #Local.isMoved := TRUE;
+	    END_IF;
+	    
 	    "changeState"(newState := #S_ERROR,
 	                  Data := #State);
 	END_IF;
