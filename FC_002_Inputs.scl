@@ -117,13 +117,69 @@ BEGIN
 	    END_REGION
 	END_REGION
 	
+	REGION 10A
+	    REGION Button box left
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxLeft.ButtonReset := "10A_BUTTON_RESET_1";
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxLeft.ButtonStart := "10A_BUTTON_START_1";
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxLeft.ButtonStop := "10A_BUTTON_STOP_1";
+	        "DEV_10".Convoyer.Modular_A.Safety.ESTOP_Left := "10A_ESTOP_1";
+	    END_REGION
+	    REGION Button box right
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxRight.ButtonReset := "10A_BUTTON_RESET_2";
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxRight.ButtonStart := "10A_BUTTON_START_2";
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.ButtonBoxRight.ButtonStop := "10A_BUTTON_STOP_2";
+	        "DEV_10".Convoyer.Modular_A.Safety.ESTOP_Right := "10A_ESTOP_2";
+	    END_REGION
+	    REGION Main Cabinet    
+	        "DEV_10".Convoyer.Modular_A.ButtonControl.CabinetBox.ButtonReset := "10_BUTTON_RESET";
+	        "DEV_10".Convoyer.Modular_A.Safety.ESTOP_MAIN := "10_ESTOP";
+	    END_REGION
+	    REGION Pneumatics
+	        "DEV_10".Convoyer.Modular_A.Pneumatics.Stamping.Sensors.In := "10A_ActuatorIn";
+	        "DEV_10".Convoyer.Modular_A.Pneumatics.Stamping.Sensors.Out := "10A_ActuatorOut";
+	        "DEV_10".Convoyer.Modular_A.Pneumatics.IVT.Sensor.Analog.RealValue := "10A_IVT_InputSignal_1";
+	        "DEV_10".Convoyer.Modular_A.Pneumatics.IVT.Sensor.Scaled.RealNorm := NORM_X(MIN := 0, VALUE := "DEV_10".Convoyer.Modular_A.Pneumatics.IVT.Sensor.Analog.RealValue, MAX := 32767);
+	        "DEV_10".Convoyer.Modular_A.Pneumatics.IVT.Sensor.Scaled.RealScale := SCALE_X(MIN := 0, VALUE := "DEV_10".Convoyer.Modular_A.Pneumatics.IVT.Sensor.Scaled.RealNorm, MAX := 7);
+	    END_REGION
+	    
+	    REGION Sensors
+	        "DEV_10".Convoyer.Modular_A.Sensors.Homing_I := "10A_Homing_I";
+	        "DEV_10".Convoyer.Modular_A.Sensors.Homing_R := "10A_Homing_R";
+	        "DEV_10".Convoyer.Modular_A.Sensors.StampingPresence := "10A_StampingPresence" AND "DEV_10".Convoyer.Modular_A.HMI.Stamping.Enable;
+	        "DEV_10".Convoyer.Modular_A.Sensors.Stamp_Check_1 := "10A_StampingCheck_1";
+	        "DEV_10".Convoyer.Modular_A.Sensors.Stamp_Check_2 := "10A_StampingCheck_2";
+	        "DEV_10".Convoyer.Modular_A.Sensors.BlowPresence := "10A_BlowPresence";
+	        "DEV_10".Convoyer.Modular_A.Sensors.CameraPresence := "10A_CameraPresence";
+	        "DEV_10".Convoyer.Modular_A.Sensors.UnloadingPresence := "10A_UnloadingPresence";
+	        "DEV_10".Convoyer.Modular_A.Sensors.Span := "10A_Span";
+	        "DEV_10".Convoyer.Modular_A.Sensors.JogBack := "10A_JogBack";
+	    END_REGION
+	    
+	    REGION Light curtains
+	        "DEV_10".Convoyer.Modular_A.Safety.LightCurtain_Stamping := "10A_LIGHT_CURTAIN_1";
+	    END_REGION
+	    
+	    REGION Door
+	        "DEV_10".Convoyer.Modular_A.Safety.DoorFront := "10A_DOOR_1";
+	        "DEV_10".Convoyer.Modular_A.Safety.DoorBack := "10A_DOOR_2";
+	        "DEV_10".Convoyer.Modular_A.Safety.DoorUnload := "10A_DOOR_3";
+	    END_REGION
+	    
+	    REGION Camera
+	        //  "DEV".Convoyer_7.Modular_7A.CameraConnection := "MainPLC_Connection_DB";
+	    END_REGION
+	END_REGION
+	
 	REGION Thermostat
 	    "DEV_7".Convoyer.Modular_A.Safety.Thermostat := NOT "7_THERMOSTAT";
 	    "DEV_7".Convoyer.Modular_B.Safety.Thermostat := NOT "7_THERMOSTAT";
+	    "DEV_10".Convoyer.Modular_A.Safety.Thermostat := NOT "10_THERMOSTAT";
 	END_REGION
 	
 	REGION 24 v
 	    "DEV_7".Convoyer.Diagnostic.Fault_24V := NOT "7_24V_OK";
+	    //ZMIENIC PO TESTACH
+	    "DEV_10".Convoyer.Diagnostic.Fault_24V := FALSE;
 	END_REGION
 	
 	REGION HMI RECIPE
@@ -172,6 +228,30 @@ BEGIN
 	            "DEV_7".Convoyer.Modular_B.HMI.Camera.Enable := "DEV_7".Recipes.Convoyer.B.SettingsTransport.Camera;
 	            "DEV_7".Convoyer.Modular_B.HMI.Blow.Enable := "DEV_7".Recipes.Convoyer.B.SettingsTransport.Blow;
 	            "DEV_7".Convoyer.Modular_B.HMI.Blow."Time" := "DEV_7".Recipes.Convoyer.B.SettingsTransport.BlowTime;
+	        END_IF;
+	    END_REGION
+	    
+	    REGION 10A
+	        IF "DEV_10".Recipes.Convoyer.A.Type = 0 THEN
+	            "DEV_10".Convoyer.Modular_A.HMI.Stamping := "DEV_10".Recipes.Convoyer.A.StampingPL;
+	            "DEV_10".Convoyer.Modular_A.HMI.Camera.Enable := "DEV_10".Recipes.Convoyer.A.SettingsPL.Camera;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow.Enable := "DEV_10".Recipes.Convoyer.A.SettingsPL.Blow;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow."Time" := "DEV_10".Recipes.Convoyer.A.SettingsPL.BlowTime;
+	        ELSIF "DEV_10".Recipes.Convoyer.A.Type = 1 THEN
+	            "DEV_10".Convoyer.Modular_A.HMI.Stamping := "DEV_10".Recipes.Convoyer.A.StampingCN;
+	            "DEV_10".Convoyer.Modular_A.HMI.Camera.Enable := "DEV_10".Recipes.Convoyer.A.SettingsCN.Camera;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow.Enable := "DEV_10".Recipes.Convoyer.A.SettingsCN.Blow;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow."Time" := "DEV_10".Recipes.Convoyer.A.SettingsCN.BlowTime;
+	        ELSIF "DEV_10".Recipes.Convoyer.A.Type = 2 THEN
+	            "DEV_10".Convoyer.Modular_A.HMI.Stamping := "DEV_10".Recipes.Convoyer.A.StampingPlastic;
+	            "DEV_10".Convoyer.Modular_A.HMI.Camera.Enable := "DEV_10".Recipes.Convoyer.A.SettingsPlastic.Camera;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow.Enable := "DEV_10".Recipes.Convoyer.A.SettingsPlastic.Blow;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow."Time" := "DEV_10".Recipes.Convoyer.A.SettingsPlastic.BlowTime;
+	        ELSIF "DEV_10".Recipes.Convoyer.A.Type = 3 THEN
+	            "DEV_10".Convoyer.Modular_A.HMI.Stamping := "DEV_10".Recipes.Convoyer.A.StampingTransport;
+	            "DEV_10".Convoyer.Modular_A.HMI.Camera.Enable := "DEV_10".Recipes.Convoyer.A.SettingsTransport.Camera;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow.Enable := "DEV_10".Recipes.Convoyer.A.SettingsTransport.Blow;
+	            "DEV_10".Convoyer.Modular_A.HMI.Blow."Time" := "DEV_10".Recipes.Convoyer.A.SettingsTransport.BlowTime;
 	        END_IF;
 	    END_REGION
 	END_REGION

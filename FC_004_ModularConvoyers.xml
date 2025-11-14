@@ -153,9 +153,36 @@
         <Component Name="ProducedUnits" />
       </Symbol>
     </Access>
-    <Call UId="29">
+    <Access Scope="GlobalVariable" UId="29">
+      <Symbol>
+        <Component Name="Modular10A" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="30">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="31">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="32">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Retains" />
+        <Component Name="ConvoyerA" />
+        <Component Name="ProducedUnits" />
+      </Symbol>
+    </Access>
+    <Call UId="33">
       <CallInfo Name="ModularConvoyer" BlockType="FB">
-        <Instance Scope="GlobalVariable" UId="30">
+        <Instance Scope="GlobalVariable" UId="34">
           <Component Name="ModularConvoyer_7A_DB" />
         </Instance>
         <Parameter Name="Axis" Section="Input" Type="TO_PositioningAxis" />
@@ -164,10 +191,21 @@
         <Parameter Name="ProducedUnits" Section="InOut" Type="DInt" />
       </CallInfo>
     </Call>
-    <Call UId="31">
+    <Call UId="35">
       <CallInfo Name="ModularConvoyer_Speed" BlockType="FB">
-        <Instance Scope="GlobalVariable" UId="32">
+        <Instance Scope="GlobalVariable" UId="36">
           <Component Name="ModularConvoyer_7B_DB" />
+        </Instance>
+        <Parameter Name="Axis" Section="Input" Type="TO_SpeedAxis" />
+        <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_SPEED&quot;" />
+        <Parameter Name="Diagnostic" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
+        <Parameter Name="ProducedUnits" Section="InOut" Type="DInt" />
+      </CallInfo>
+    </Call>
+    <Call UId="37">
+      <CallInfo Name="ModularConvoyer_Speed" BlockType="FB">
+        <Instance Scope="GlobalVariable" UId="38">
+          <Component Name="ModularConvoyer_10A_DB" />
         </Instance>
         <Parameter Name="Axis" Section="Input" Type="TO_SpeedAxis" />
         <Parameter Name="Convoyer" Section="InOut" Type="&quot;Modular_SPEED&quot;" />
@@ -177,42 +215,59 @@
     </Call>
   </Parts>
   <Wires>
-    <Wire UId="33">
-      <Powerrail />
-      <NameCon UId="29" Name="en" />
-      <NameCon UId="31" Name="en" />
-    </Wire>
-    <Wire UId="34">
-      <IdentCon UId="21" />
-      <NameCon UId="29" Name="Axis" />
-    </Wire>
-    <Wire UId="35">
-      <IdentCon UId="22" />
-      <NameCon UId="29" Name="Convoyer" />
-    </Wire>
-    <Wire UId="36">
-      <IdentCon UId="23" />
-      <NameCon UId="29" Name="Diagnostic" />
-    </Wire>
-    <Wire UId="37">
-      <IdentCon UId="24" />
-      <NameCon UId="29" Name="ProducedUnits" />
-    </Wire>
-    <Wire UId="38">
-      <IdentCon UId="25" />
-      <NameCon UId="31" Name="Axis" />
-    </Wire>
     <Wire UId="39">
-      <IdentCon UId="26" />
-      <NameCon UId="31" Name="Convoyer" />
+      <Powerrail />
+      <NameCon UId="33" Name="en" />
+      <NameCon UId="35" Name="en" />
+      <NameCon UId="37" Name="en" />
     </Wire>
     <Wire UId="40">
-      <IdentCon UId="27" />
-      <NameCon UId="31" Name="Diagnostic" />
+      <IdentCon UId="21" />
+      <NameCon UId="33" Name="Axis" />
     </Wire>
     <Wire UId="41">
+      <IdentCon UId="22" />
+      <NameCon UId="33" Name="Convoyer" />
+    </Wire>
+    <Wire UId="42">
+      <IdentCon UId="23" />
+      <NameCon UId="33" Name="Diagnostic" />
+    </Wire>
+    <Wire UId="43">
+      <IdentCon UId="24" />
+      <NameCon UId="33" Name="ProducedUnits" />
+    </Wire>
+    <Wire UId="44">
+      <IdentCon UId="25" />
+      <NameCon UId="35" Name="Axis" />
+    </Wire>
+    <Wire UId="45">
+      <IdentCon UId="26" />
+      <NameCon UId="35" Name="Convoyer" />
+    </Wire>
+    <Wire UId="46">
+      <IdentCon UId="27" />
+      <NameCon UId="35" Name="Diagnostic" />
+    </Wire>
+    <Wire UId="47">
       <IdentCon UId="28" />
-      <NameCon UId="31" Name="ProducedUnits" />
+      <NameCon UId="35" Name="ProducedUnits" />
+    </Wire>
+    <Wire UId="48">
+      <IdentCon UId="29" />
+      <NameCon UId="37" Name="Axis" />
+    </Wire>
+    <Wire UId="49">
+      <IdentCon UId="30" />
+      <NameCon UId="37" Name="Convoyer" />
+    </Wire>
+    <Wire UId="50">
+      <IdentCon UId="31" />
+      <NameCon UId="37" Name="Diagnostic" />
+    </Wire>
+    <Wire UId="51">
+      <IdentCon UId="32" />
+      <NameCon UId="37" Name="ProducedUnits" />
     </Wire>
   </Wires>
 </FlgNet></NetworkSource>

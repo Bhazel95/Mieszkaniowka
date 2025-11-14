@@ -49,20 +49,32 @@
         <Component Name="Diagnostic" />
       </Symbol>
     </Access>
-    <Call UId="22">
+    <Access Scope="GlobalVariable" UId="22">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
+      </Symbol>
+    </Access>
+    <Call UId="23">
       <CallInfo Name="FC_001_Diagnostic" BlockType="FC">
-        <Parameter Name="Diagnostic" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
+        <Parameter Name="Diagnostic7" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
+        <Parameter Name="Diagnostic10" Section="InOut" Type="&quot;DiagnosticMainCabinet&quot;" />
       </CallInfo>
     </Call>
   </Parts>
   <Wires>
-    <Wire UId="23">
-      <Powerrail />
-      <NameCon UId="22" Name="en" />
-    </Wire>
     <Wire UId="24">
+      <Powerrail />
+      <NameCon UId="23" Name="en" />
+    </Wire>
+    <Wire UId="25">
       <IdentCon UId="21" />
-      <NameCon UId="22" Name="Diagnostic" />
+      <NameCon UId="23" Name="Diagnostic7" />
+    </Wire>
+    <Wire UId="26">
+      <IdentCon UId="22" />
+      <NameCon UId="23" Name="Diagnostic10" />
     </Wire>
   </Wires>
 </FlgNet></NetworkSource>
@@ -185,12 +197,43 @@
     </Access>
     <Access Scope="GlobalVariable" UId="27">
       <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
+        <Component Name="MotorStatus" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="28">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
+        <Component Name="CameraStatus" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="29">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
+        <Component Name="StampingStatus" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="30">
+      <Symbol>
         <Component Name="DEV_7" />
         <Component Name="Convoyer" />
         <Component Name="Diagnostic" />
       </Symbol>
     </Access>
-    <Access Scope="GlobalVariable" UId="28">
+    <Access Scope="GlobalVariable" UId="31">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Diagnostic" />
+      </Symbol>
+    </Access>
+    <Access Scope="GlobalVariable" UId="32">
       <Symbol>
         <Component Name="DEV_7" />
         <Component Name="Convoyer" />
@@ -198,7 +241,7 @@
         <Component Name="Alarms" />
       </Symbol>
     </Access>
-    <Access Scope="GlobalVariable" UId="29">
+    <Access Scope="GlobalVariable" UId="33">
       <Symbol>
         <Component Name="DEV_7" />
         <Component Name="Convoyer" />
@@ -206,7 +249,15 @@
         <Component Name="Alarms" />
       </Symbol>
     </Access>
-    <Call UId="30">
+    <Access Scope="GlobalVariable" UId="34">
+      <Symbol>
+        <Component Name="DEV_10" />
+        <Component Name="Convoyer" />
+        <Component Name="Modular_A" />
+        <Component Name="Alarms" />
+      </Symbol>
+    </Access>
+    <Call UId="35">
       <CallInfo Name="FC_003_Alarms" BlockType="FC">
         <Parameter Name="StatusInverter_7A" Section="Input" Type="&quot;Status&quot;" />
         <Parameter Name="StatusCamera_7A" Section="Input" Type="&quot;Status&quot;" />
@@ -214,52 +265,77 @@
         <Parameter Name="StatusInverter_7B" Section="Input" Type="&quot;Status&quot;" />
         <Parameter Name="StatusCamera_7B" Section="Input" Type="&quot;Status&quot;" />
         <Parameter Name="StatusStamping_7B" Section="Input" Type="&quot;Status&quot;" />
+        <Parameter Name="StatusInverter_10A" Section="Input" Type="&quot;Status&quot;" />
+        <Parameter Name="StatusCamera_10A" Section="Input" Type="&quot;Status&quot;" />
+        <Parameter Name="StatusStamping_10A" Section="Input" Type="&quot;Status&quot;" />
         <Parameter Name="Diagnostic_7" Section="Input" Type="&quot;DiagnosticMainCabinet&quot;" />
+        <Parameter Name="Diagnostic_10" Section="Input" Type="&quot;DiagnosticMainCabinet&quot;" />
         <Parameter Name="Alarms_7A" Section="InOut" Type="&quot;Alarms_10&quot;" />
         <Parameter Name="Alarms_7B" Section="InOut" Type="&quot;Alarms_10&quot;" />
+        <Parameter Name="Alarms_10A" Section="InOut" Type="&quot;Alarms_10&quot;" />
       </CallInfo>
     </Call>
   </Parts>
   <Wires>
-    <Wire UId="31">
-      <Powerrail />
-      <NameCon UId="30" Name="en" />
-    </Wire>
-    <Wire UId="32">
-      <IdentCon UId="21" />
-      <NameCon UId="30" Name="StatusInverter_7A" />
-    </Wire>
-    <Wire UId="33">
-      <IdentCon UId="22" />
-      <NameCon UId="30" Name="StatusCamera_7A" />
-    </Wire>
-    <Wire UId="34">
-      <IdentCon UId="23" />
-      <NameCon UId="30" Name="StatusStamping_7A" />
-    </Wire>
-    <Wire UId="35">
-      <IdentCon UId="24" />
-      <NameCon UId="30" Name="StatusInverter_7B" />
-    </Wire>
     <Wire UId="36">
-      <IdentCon UId="25" />
-      <NameCon UId="30" Name="StatusCamera_7B" />
+      <Powerrail />
+      <NameCon UId="35" Name="en" />
     </Wire>
     <Wire UId="37">
-      <IdentCon UId="26" />
-      <NameCon UId="30" Name="StatusStamping_7B" />
+      <IdentCon UId="21" />
+      <NameCon UId="35" Name="StatusInverter_7A" />
     </Wire>
     <Wire UId="38">
-      <IdentCon UId="27" />
-      <NameCon UId="30" Name="Diagnostic_7" />
+      <IdentCon UId="22" />
+      <NameCon UId="35" Name="StatusCamera_7A" />
     </Wire>
     <Wire UId="39">
-      <IdentCon UId="28" />
-      <NameCon UId="30" Name="Alarms_7A" />
+      <IdentCon UId="23" />
+      <NameCon UId="35" Name="StatusStamping_7A" />
     </Wire>
     <Wire UId="40">
+      <IdentCon UId="24" />
+      <NameCon UId="35" Name="StatusInverter_7B" />
+    </Wire>
+    <Wire UId="41">
+      <IdentCon UId="25" />
+      <NameCon UId="35" Name="StatusCamera_7B" />
+    </Wire>
+    <Wire UId="42">
+      <IdentCon UId="26" />
+      <NameCon UId="35" Name="StatusStamping_7B" />
+    </Wire>
+    <Wire UId="43">
+      <IdentCon UId="27" />
+      <NameCon UId="35" Name="StatusInverter_10A" />
+    </Wire>
+    <Wire UId="44">
+      <IdentCon UId="28" />
+      <NameCon UId="35" Name="StatusCamera_10A" />
+    </Wire>
+    <Wire UId="45">
       <IdentCon UId="29" />
-      <NameCon UId="30" Name="Alarms_7B" />
+      <NameCon UId="35" Name="StatusStamping_10A" />
+    </Wire>
+    <Wire UId="46">
+      <IdentCon UId="30" />
+      <NameCon UId="35" Name="Diagnostic_7" />
+    </Wire>
+    <Wire UId="47">
+      <IdentCon UId="31" />
+      <NameCon UId="35" Name="Diagnostic_10" />
+    </Wire>
+    <Wire UId="48">
+      <IdentCon UId="32" />
+      <NameCon UId="35" Name="Alarms_7A" />
+    </Wire>
+    <Wire UId="49">
+      <IdentCon UId="33" />
+      <NameCon UId="35" Name="Alarms_7B" />
+    </Wire>
+    <Wire UId="50">
+      <IdentCon UId="34" />
+      <NameCon UId="35" Name="Alarms_10A" />
     </Wire>
   </Wires>
 </FlgNet></NetworkSource>
