@@ -148,7 +148,7 @@ BEGIN
 	        "DEV_10".Convoyer.Modular_A.Sensors.StampingPresence := "10A_StampingPresence" AND "DEV_10".Convoyer.Modular_A.HMI.Stamping.Enable;
 	        "DEV_10".Convoyer.Modular_A.Sensors.Stamp_Check_1 := "10A_StampingCheck_1";
 	        "DEV_10".Convoyer.Modular_A.Sensors.Stamp_Check_2 := "10A_StampingCheck_2";
-	        "DEV_10".Convoyer.Modular_A.Sensors.BlowPresence := "10A_BlowPresence";
+	        "DEV_10".Convoyer.Modular_A.Sensors.BlowPresence := NOT "10A_BlowPresence";
 	        "DEV_10".Convoyer.Modular_A.Sensors.CameraPresence := "10A_CameraPresence";
 	        "DEV_10".Convoyer.Modular_A.Sensors.UnloadingPresence := "10A_UnloadingPresence";
 	        "DEV_10".Convoyer.Modular_A.Sensors.Span := "10A_Span";

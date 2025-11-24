@@ -189,10 +189,10 @@
                           <Section Name="None">
                             <Member Name="Timers" Datatype="Struct">
                               <Member Name="In" Datatype="Time">
-                                <StartValue>T#5000ms</StartValue>
+                                <StartValue>T#6000ms</StartValue>
                               </Member>
                               <Member Name="Out" Datatype="Time">
-                                <StartValue>T#5000ms</StartValue>
+                                <StartValue>T#6000ms</StartValue>
                               </Member>
                             </Member>
                           </Section>

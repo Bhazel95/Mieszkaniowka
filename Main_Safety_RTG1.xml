@@ -1108,7 +1108,9 @@
     <Part Name="O" UId="48">
       <TemplateValue Name="Card" Type="Cardinality">4</TemplateValue>
     </Part>
-    <Part Name="Contact" UId="49" />
+    <Part Name="Contact" UId="49">
+      <Negated Name="operand" />
+    </Part>
     <Part Name="Contact" UId="50" />
     <Part Name="Contact" UId="51" />
     <Part Name="O" UId="52">

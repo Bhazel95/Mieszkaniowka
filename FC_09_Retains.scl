@@ -16,6 +16,7 @@ BEGIN
 	REGION Camera state  
 	    "DEV_7".Convoyer.Modular_A.HMI.Camera.State := "ModularConvoyer_7A_DB".CameraConnectionTCP_Instance.State.name;
 	    "DEV_7".Convoyer.Modular_B.HMI.Camera.State := "ModularConvoyer_7B_DB".CameraConnectionTCP_Instance.State.name;
+	    "DEV_10".Convoyer.Modular_A.HMI.Camera.State := "ModularConvoyer_10A_DB".CameraConnectionTCP_Instance.State.name;
 	END_REGION
 	
 END_FUNCTION

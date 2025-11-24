@@ -945,79 +945,159 @@
     </Constant>
   </Access>
   <Token Text=";" UId="778" />
-  <NewLine Num="3" UId="779" />
+  <NewLine Num="2" UId="779" />
   <Access Scope="LocalVariable" UId="780">
     <Symbol UId="781">
       <Component Name="Diagnostic7" UId="782" />
       <Token Text="." UId="783" />
-      <Component Name="SinamicG120_1" UId="784" />
+      <Component Name="ET_200SP" UId="784" />
       <Token Text="." UId="785" />
-      <Component Name="LADDR" UId="786" />
+      <Component Name="ET_200AL_3" UId="786" />
+      <Token Text="." UId="787" />
+      <Component Name="LADDR" UId="788" />
     </Symbol>
   </Access>
-  <Blank UId="787" />
-  <Token Text=":=" UId="788" />
   <Blank UId="789" />
-  <Access Scope="GlobalConstant" UId="790">
-    <Constant Name="G120_CU250S_2_PN_VECTOR_7A~PROFINET_interface~IODevice" UId="791" />
+  <Token Text=":=" UId="790" />
+  <Blank UId="791" />
+  <Access Scope="GlobalConstant" UId="792">
+    <Constant Name="IO_device_1~DI_8x24VDC_8xM8_3" UId="793" />
   </Access>
-  <Token Text=";" UId="794" />
-  <NewLine UId="795" />
-  <Access Scope="LocalVariable" UId="796">
-    <Symbol UId="797">
-      <Component Name="Diagnostic7" UId="798" />
-      <Token Text="." UId="799" />
-      <Component Name="SinamicG120_1" UId="800" />
+  <Token Text=";" UId="796" />
+  <NewLine UId="797" />
+  <Access Scope="LocalVariable" UId="798">
+    <Symbol UId="799">
+      <Component Name="Diagnostic7" UId="800" />
       <Token Text="." UId="801" />
-      <Component Name="Mode" UId="802" />
+      <Component Name="ET_200SP" UId="802" />
+      <Token Text="." UId="803" />
+      <Component Name="ET_200AL_3" UId="804" />
+      <Token Text="." UId="805" />
+      <Component Name="Mode" UId="806" />
     </Symbol>
   </Access>
-  <Blank UId="803" />
-  <Token Text=":=" UId="804" />
-  <Blank UId="805" />
-  <Access Scope="LiteralConstant" UId="806">
-    <Constant UId="807">
-      <ConstantValue UId="809">1</ConstantValue>
+  <Blank UId="807" />
+  <Token Text=":=" UId="808" />
+  <Blank UId="809" />
+  <Access Scope="LiteralConstant" UId="810">
+    <Constant UId="811">
+      <ConstantValue UId="813">1</ConstantValue>
     </Constant>
   </Access>
-  <Token Text=";" UId="810" />
-  <NewLine Num="2" UId="811" />
-  <Access Scope="LocalVariable" UId="812">
-    <Symbol UId="813">
-      <Component Name="Diagnostic7" UId="814" />
-      <Token Text="." UId="815" />
-      <Component Name="SinamicG120_1" UId="816" />
-      <Token Text="." UId="817" />
-      <Component Name="LADDR" UId="818" />
+  <Token Text=";" UId="814" />
+  <NewLine Num="2" UId="815" />
+  <Access Scope="LocalVariable" UId="816">
+    <Symbol UId="817">
+      <Component Name="Diagnostic7" UId="818" />
+      <Token Text="." UId="819" />
+      <Component Name="ET_200SP" UId="820" />
+      <Token Text="." UId="821" />
+      <Component Name="ET_200AL_4" UId="822" />
+      <Token Text="." UId="823" />
+      <Component Name="LADDR" UId="824" />
     </Symbol>
   </Access>
-  <Blank UId="819" />
-  <Token Text=":=" UId="820" />
-  <Blank UId="821" />
-  <Access Scope="GlobalConstant" UId="822">
-    <Constant Name="G120_CU250S_2_PN_VECTOR_7B~PROFINET_interface~IODevice" UId="823" />
+  <Blank UId="825" />
+  <Token Text=":=" UId="826" />
+  <Blank UId="827" />
+  <Access Scope="GlobalConstant" UId="828">
+    <Constant Name="IO_device_1~DI_8x24VDC_8xM8_4" UId="829" />
   </Access>
-  <Token Text=";" UId="826" />
-  <NewLine UId="827" />
-  <Access Scope="LocalVariable" UId="828">
-    <Symbol UId="829">
-      <Component Name="Diagnostic7" UId="830" />
-      <Token Text="." UId="831" />
-      <Component Name="SinamicG120_1" UId="832" />
-      <Token Text="." UId="833" />
-      <Component Name="Mode" UId="834" />
+  <Token Text=";" UId="832" />
+  <NewLine UId="833" />
+  <Access Scope="LocalVariable" UId="834">
+    <Symbol UId="835">
+      <Component Name="Diagnostic7" UId="836" />
+      <Token Text="." UId="837" />
+      <Component Name="ET_200SP" UId="838" />
+      <Token Text="." UId="839" />
+      <Component Name="ET_200AL_4" UId="840" />
+      <Token Text="." UId="841" />
+      <Component Name="Mode" UId="842" />
     </Symbol>
   </Access>
-  <Blank UId="835" />
-  <Token Text=":=" UId="836" />
-  <Blank UId="837" />
-  <Access Scope="LiteralConstant" UId="838">
-    <Constant UId="839">
-      <ConstantValue UId="841">1</ConstantValue>
+  <Blank UId="843" />
+  <Token Text=":=" UId="844" />
+  <Blank UId="845" />
+  <Access Scope="LiteralConstant" UId="846">
+    <Constant UId="847">
+      <ConstantValue UId="849">1</ConstantValue>
     </Constant>
   </Access>
-  <Token Text=";" UId="842" />
-  <NewLine UId="843" />
+  <Token Text=";" UId="850" />
+  <NewLine Num="2" UId="851" />
+  <Access Scope="LocalVariable" UId="852">
+    <Symbol UId="853">
+      <Component Name="Diagnostic7" UId="854" />
+      <Token Text="." UId="855" />
+      <Component Name="SinamicG120_1" UId="856" />
+      <Token Text="." UId="857" />
+      <Component Name="LADDR" UId="858" />
+    </Symbol>
+  </Access>
+  <Blank UId="859" />
+  <Token Text=":=" UId="860" />
+  <Blank UId="861" />
+  <Access Scope="GlobalConstant" UId="862">
+    <Constant Name="G120_CU250S_2_PN_VECTOR_7A~PROFINET_interface~IODevice" UId="863" />
+  </Access>
+  <Token Text=";" UId="866" />
+  <NewLine UId="867" />
+  <Access Scope="LocalVariable" UId="868">
+    <Symbol UId="869">
+      <Component Name="Diagnostic7" UId="870" />
+      <Token Text="." UId="871" />
+      <Component Name="SinamicG120_1" UId="872" />
+      <Token Text="." UId="873" />
+      <Component Name="Mode" UId="874" />
+    </Symbol>
+  </Access>
+  <Blank UId="875" />
+  <Token Text=":=" UId="876" />
+  <Blank UId="877" />
+  <Access Scope="LiteralConstant" UId="878">
+    <Constant UId="879">
+      <ConstantValue UId="881">1</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="882" />
+  <NewLine Num="2" UId="883" />
+  <Access Scope="LocalVariable" UId="884">
+    <Symbol UId="885">
+      <Component Name="Diagnostic7" UId="886" />
+      <Token Text="." UId="887" />
+      <Component Name="SinamicG120_1" UId="888" />
+      <Token Text="." UId="889" />
+      <Component Name="LADDR" UId="890" />
+    </Symbol>
+  </Access>
+  <Blank UId="891" />
+  <Token Text=":=" UId="892" />
+  <Blank UId="893" />
+  <Access Scope="GlobalConstant" UId="894">
+    <Constant Name="G120_CU250S_2_PN_VECTOR_7B~PROFINET_interface~IODevice" UId="895" />
+  </Access>
+  <Token Text=";" UId="898" />
+  <NewLine UId="899" />
+  <Access Scope="LocalVariable" UId="900">
+    <Symbol UId="901">
+      <Component Name="Diagnostic7" UId="902" />
+      <Token Text="." UId="903" />
+      <Component Name="SinamicG120_1" UId="904" />
+      <Token Text="." UId="905" />
+      <Component Name="Mode" UId="906" />
+    </Symbol>
+  </Access>
+  <Blank UId="907" />
+  <Token Text=":=" UId="908" />
+  <Blank UId="909" />
+  <Access Scope="LiteralConstant" UId="910">
+    <Constant UId="911">
+      <ConstantValue UId="913">1</ConstantValue>
+    </Constant>
+  </Access>
+  <Token Text=";" UId="914" />
+  <NewLine UId="915" />
 </StructuredText></NetworkSource>
           <ProgrammingLanguage>SCL</ProgrammingLanguage>
         </AttributeList>

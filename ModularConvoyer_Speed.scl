@@ -177,6 +177,7 @@ BEGIN
 	            END_IF;
 	            //COFANIE TRANSPORTERA
 	            IF NOT #Local.AutoMode AND #Local.PermissionGoBack AND #Timers.GoBackwardEnable.Timer.Q AND NOT #Local.Buttons.START AND NOT #Local.Buttons.STOP THEN
+	                #Local.isMoved := TRUE;
 	                "changeState"(newState := #S_GO_BACK,
 	                              Data := #State);
 	            END_IF;

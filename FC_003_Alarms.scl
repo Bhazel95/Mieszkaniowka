@@ -34,7 +34,7 @@ BEGIN
 	//************************************************************
 	
 	REGION Alarms Convoyer 7
-	    #Alarms_7A.ESTOP.Main :=NOT "7_ESTOP";
+	    #Alarms_7A.ESTOP.Main := NOT "7_ESTOP";
 	    #Alarms_7A.Fault24V := NOT "7_24V_OK";
 	    REGION Convoyer 7A   
 	        #Alarms_7A.ResetReq := "DEV_7".Convoyer.Modular_A.Safety.REQ_RESET OR NOT "7A_Valve_Safety_1";
@@ -88,8 +88,6 @@ BEGIN
 	            ;
 	        END_REGION
 	    END_REGION
-	    END_REGION
-	    
 	    REGION Convoyer 7B 
 	        #Alarms_7B.ResetReq := "DEV_7".Convoyer.Modular_B.Safety.REQ_RESET OR NOT "7B_Valve_Safety_1";
 	        REGION ESTOP&DOOR
@@ -140,8 +138,8 @@ BEGIN
 	        REGION IVT
 	            ;
 	        END_REGION
-	    END_REGION 
-	    
+	    END_REGION
+	END_REGION
 	    
 	    REGION Alarms Convoyer 10
 	        #Alarms_10A.ESTOP.Main := NOT "10_ESTOP";

@@ -12,11 +12,15 @@ BEGIN
 	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Velocity := 0.15;
 	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Acceleration := 0.3;
 	    "DEV_7".Convoyer.Modular_B.MotorControl.MC_MOVEJOG.Deceleration := 0.7;
+	    
+	    "DEV_10".Convoyer.Modular_A.MotorControl.MC_MOVEJOG.Velocity := 0.15;
+	    "DEV_10".Convoyer.Modular_A.MotorControl.MC_MOVEJOG.Acceleration := 0.3;
+	    "DEV_10".Convoyer.Modular_A.MotorControl.MC_MOVEJOG.Deceleration := 0.7;
 	END_REGION
 	REGION SKIP FIRST SOCKET
 	    "ModularConvoyer_7A_DB".Local.isMoved := TRUE;
 	    "ModularConvoyer_7B_DB".Local.isMoved := TRUE;
-	    
+	    "ModularConvoyer_10A_DB".Local.isMoved := TRUE;
 	END_REGION
 	
 	
